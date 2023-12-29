@@ -1,0 +1,52 @@
+[
+    {
+      "id": 1,
+      "email": "john.doe@example.com",
+      "password": "password123"
+    },
+    {
+      "id": 2,
+      "email": "jane.smith@example.com",
+      "password": "securePass"
+    },
+    {
+      "id": 3,
+      "email": "peter.jansen@example.com",
+      "password": "geheimWachtwoord"
+    },
+    {
+      "id": 4,
+      "email": "lisa.vanderberg@example.com",
+      "password": "veiligWachtwoord"
+    },
+    {
+      "id": 5,
+      "email": "michael.white@example.com",
+      "password": "strongPassword"
+    },
+    {
+      "id": 6,
+      "email": "emma.vanbeek@example.com",
+      "password": "secretPass123"
+    },
+    {
+      "id": 7,
+      "email": "david.janssens@example.com",
+      "password": "privatePwd"
+    },
+    {
+      "id": 8,
+      "email": "olivia.molenaar@example.com",
+      "password": "safe1234"
+    },
+    {
+      "id": 9,
+      "email": "william.dejong@example.com",
+      "password": "hiddenPass"
+    },
+    {
+      "id": 10,
+      "email": "sophia.kuijpers@example.com",
+      "password": "protectedPwd"
+    }
+]
