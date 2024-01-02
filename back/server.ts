@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { AuthMiddleware } from "./auth/middleware";
+import { AuthMiddleware, AuthRequest } from "./auth/middleware";
 import { PrismaClient } from "@prisma/client";
 import { json } from "express";
 import { toToken } from "./auth/jwt";
@@ -139,35 +139,88 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/users", AuthMiddleware, async (req, res) => {
-  const allUsers = await prisma.user.findMany({
-    select: {
-      id: true,
-      email: true,
-    },
-  });
-  res.send(allUsers);
-});
+// app.get("/users", AuthMiddleware, async (req, res) => {
+//   const allUsers = await prisma.user.findMany({
+//     select: {
+//       id: true,
+//       email: true,
+//     },
+//   });
+//   res.send(allUsers);
+// });
 
-app.get("/users/:id", AuthMiddleware, async (req, res) => {
-  const idAsNumber = parseInt(req.params.id);
-  const oneUser = await prisma.user.findUnique({
+app.get("/profile", AuthMiddleware, async (req: AuthRequest, res) => {
+  if (!req.userId) {
+    res.status(401).send({ message: "User not authenticated" });
+    return;
+  }
+
+  const userProfile = await prisma.user.findUnique({
     where: {
-      id: idAsNumber,
+      id: req.userId,
     },
     select: {
-      id: true,
       email: true,
     },
   });
-  if (!oneUser) {
+
+  if (!userProfile) {
     res.status(404).send({
       message: "User with that id not found",
     });
     return;
   }
 
-  res.send(oneUser);
+  res.send(userProfile);
+});
+
+app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
+  if (!req.userId) {
+    res.status(401).send({ message: "User not authenticated" });
+    return;
+  }
+
+  const getUser = await prisma.user.findUnique({
+    where: {
+      id: req.userId,
+    },
+    select: {
+      email: true,
+    },
+  });
+
+  if (!getUser) {
+    res.status(404).send({
+      message: "User with that id not found",
+    });
+    return;
+  }
+
+  const getProducts = await prisma.product.findMany({
+    where: {
+      id: req.userId,
+    },
+    select: {
+      id: true,
+      prName: true,
+      expires: true,
+      opened: true,
+      expiresInDays: true,
+      imgUrl: true,
+      category: true,
+      description: true,
+      important: true,
+    },
+  });
+
+  if (!getProducts) {
+    res.status(404).send({
+      message: "Products not found",
+    });
+    return;
+  }
+
+  res.send(getProducts);
 });
 
 app.listen(port, () => {

@@ -1,0 +1,9 @@
+.logo {
+  width: 40px;
+  height: auto;
+  margin: 2rem;
+}
+
+.primary-top {
+  display: flex;
+}
