@@ -35,7 +35,7 @@ app.get("/products", async (req, res) => {
   res.send(allProducts);
 });
 
-app.get("/product/:id", async (req, res) => {
+app.get("/products/:id", async (req, res) => {
   const idAsNumber = parseInt(req.params.id);
   const oneProduct = await prisma.product.findUnique({
     where: {
@@ -147,6 +147,27 @@ app.get("/users", AuthMiddleware, async (req, res) => {
     },
   });
   res.send(allUsers);
+});
+
+app.get("/users/:id", AuthMiddleware, async (req, res) => {
+  const idAsNumber = parseInt(req.params.id);
+  const oneUser = await prisma.user.findUnique({
+    where: {
+      id: idAsNumber,
+    },
+    select: {
+      id: true,
+      email: true,
+    },
+  });
+  if (!oneUser) {
+    res.status(404).send({
+      message: "User with that id not found",
+    });
+    return;
+  }
+
+  res.send(oneUser);
 });
 
 app.listen(port, () => {
