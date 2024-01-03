@@ -4,7 +4,7 @@ import { AuthMiddleware, AuthRequest } from "./auth/middleware";
 import { PrismaClient } from "@prisma/client";
 import { json } from "express";
 import { toToken } from "./auth/jwt";
-import { z } from "zod";
+import { date, z } from "zod";
 
 const app = express();
 
@@ -221,6 +221,59 @@ app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
   }
 
   res.send(getProducts);
+});
+
+const productValidator = z.object({
+  prName: z.string(),
+  expires: z.string().datetime(),
+  opened: z.string().datetime(),
+  expiresInDays: z.number().positive(), // TODO: remove static number and find the way to keep this number updated!
+  imgUrl: z.string(),
+  categoryId: z.number().positive(),
+  description: z.string(),
+  important: z.boolean(),
+});
+
+app.post("/add-new-product", AuthMiddleware, async (req: AuthRequest, res) => {
+  if (!req.userId) {
+    res.status(401).send({ message: "User not authenticated" });
+    return;
+  }
+  const parsedBody = productValidator.safeParse(req.body);
+
+  if (!parsedBody.success) {
+    res.status(400).send(parsedBody.error.flatten());
+    return;
+  }
+
+  try {
+    const newProduct = await prisma.product.create({
+      data: {
+        user: {
+          connect: {
+            id: req.userId,
+          },
+        },
+        prName: req.body.prName,
+        expires: req.body.expires,
+        opened: req.body.opened,
+        expiresInDays: req.body.expiresInDays,
+        imgUrl: req.body.imgUrl,
+        category: {
+          connect: {
+            id: req.body.categoryId,
+          },
+        },
+        description: req.body.description,
+        important: req.body.important,
+      },
+    });
+    res
+      .status(201)
+      .send({ message: "New product has been created", newProduct });
+  } catch (error) {
+    res.status(400).send({ message: "Failed to add a wish! " + error });
+  }
 });
 
 app.listen(port, () => {
