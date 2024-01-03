@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import LogoLink from "@/components/LogoLink";
 
 const dataFromFormValidator = z.object({
   email: z.string().email().min(5),
@@ -39,7 +40,7 @@ const Login = () => {
         const jsonResponse = await response.json();
         console.log("Login Successful:", jsonResponse);
         localStorage.setItem("token", jsonResponse.token);
-        router.push("/");
+        router.push("/main");
       } else {
         console.log("Login failed:", response.status);
       }
@@ -50,6 +51,7 @@ const Login = () => {
 
   return (
     <>
+      <LogoLink />
       <header>
         <h1>Login</h1>
       </header>

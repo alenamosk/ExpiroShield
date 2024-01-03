@@ -7,3 +7,8 @@
 .primary-top {
   display: flex;
 }
+
+.logoLink {
+  display: flex;
+  width: 60px;
+}

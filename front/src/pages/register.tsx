@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import LogoLink from "@/components/LogoLink";
 
 const dataFromFormValidator = z.object({
   email: z.string().email().min(5),
@@ -45,6 +46,7 @@ const Register = () => {
 
   return (
     <>
+      <LogoLink />
       <header>
         <h1>Register</h1>
       </header>
