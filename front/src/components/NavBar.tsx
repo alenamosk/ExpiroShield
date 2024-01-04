@@ -60,6 +60,9 @@ const NavBar = () => {
           <Link href="/add-new-product">
             <button>Add new product</button>
           </Link>
+          <Link href="/main">
+            <button>My products page</button>
+          </Link>
           <button className="button" onClick={handleLogout}>
             Log Out
           </button>

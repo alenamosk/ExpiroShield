@@ -225,8 +225,8 @@ app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
 
 const productValidator = z.object({
   prName: z.string(),
-  expires: z.string().datetime(),
-  opened: z.string().datetime(),
+  expires: z.coerce.date(),
+  opened: z.coerce.date(),
   expiresInDays: z.number().positive(), // TODO: remove static number and find the way to keep this number updated!
   imgUrl: z.string(),
   categoryId: z.number().positive(),

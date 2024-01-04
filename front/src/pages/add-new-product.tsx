@@ -2,14 +2,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/router";
+import NavBar from "@/components/NavBar";
+import { Category } from "@/types/types";
+import { useEffect, useState } from "react";
 
 const dataFromFormValidator = z.object({
   prName: z.string(),
-  expires: z.string().datetime(),
-  opened: z.string().datetime(),
+  expires: z.coerce.date(),
+  opened: z.coerce.date(),
   expiresInDays: z.number().positive(),
   imgUrl: z.string(),
-  categoryId: z.number().positive(),
+  categoryId: z.coerce.number().positive(),
   description: z.string(),
   important: z.boolean(),
 });
@@ -18,6 +21,24 @@ type DataFromForm = z.infer<typeof dataFromFormValidator>;
 
 const FormText = () => {
   const router = useRouter();
+
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesResponse = await fetch(
+          "http://127.0.0.1:3001/categories"
+        );
+
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const {
     register,
@@ -61,6 +82,7 @@ const FormText = () => {
 
   return (
     <main>
+      <NavBar />
       <h1>Add a new product</h1>
       <form className="vertical-form" onSubmit={handleSubmit(handleFormSubmit)}>
         <label htmlFor="prName">Name of the product</label>
@@ -70,13 +92,13 @@ const FormText = () => {
         <label htmlFor="expires">
           Expiration date indicated on the product
         </label>
-        <input id="expires" {...register("expires")}></input>
+        <input type="date" id="expires" {...register("expires")}></input>
         {errors.expires && (
           <p className="error-msg">{errors.expires.message}</p>
         )}
 
         <label htmlFor="opened">The day you opened the product</label>
-        <input id="opened" {...register("opened")}></input>
+        <input type="date" id="opened" {...register("opened")}></input>
         {errors.opened && <p className="error-msg">{errors.opened.message}</p>}
 
         <label htmlFor="expiresInDays">
@@ -86,6 +108,7 @@ const FormText = () => {
           type="number"
           id="expiresInDays"
           {...register("expiresInDays", { valueAsNumber: true })}
+          placeholder="3 months = 90 days, 6 months = 180 days"
         ></input>
         {errors.expiresInDays && (
           <p className="error-msg">{errors.expiresInDays.message}</p>
@@ -97,11 +120,11 @@ const FormText = () => {
 
         <label htmlFor="categoryId">Choose a category</label>
         <select id="categoryId" {...register("categoryId")}>
-          <option value={1}>Skin, body and hair care</option>
-          <option value={2}>Cosmetics</option>
-          <option value={3}>Medicines</option>
-          <option value={4}>Pet care products</option>
-          <option value={5}>Other</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.catName}
+            </option>
+          ))}
         </select>
         {errors.categoryId && (
           <p className="error-msg">{errors.categoryId.message}</p>
