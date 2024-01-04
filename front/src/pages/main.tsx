@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Product } from "@/types/types";
 import { useEffect, useState } from "react";
+import NavBar from "@/components/NavBar";
 
 const Main = () => {
   const [products, setProducts] = useState<Product[] | null>(null);
@@ -25,8 +26,8 @@ const Main = () => {
 
   return (
     <>
+      <NavBar />
       <h1>Your products</h1>
-      <button>add a new product</button>
 
       {products !== null && products.length > 0 ? (
         <div>
