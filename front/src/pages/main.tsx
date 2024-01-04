@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import NavBar from "@/components/NavBar";
 
 const Main = () => {
-  const [products, setProducts] = useState<Product[] | null>(null);
+  const [products, setProducts] = useState<Product[] | []>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +29,7 @@ const Main = () => {
       <NavBar />
       <h1>Your products</h1>
 
-      {products !== null && products.length > 0 ? (
+      {products.length > 0 ? (
         <div>
           {products.map((product) => (
             <div key={product.id}>

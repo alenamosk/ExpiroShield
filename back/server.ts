@@ -198,7 +198,7 @@ app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
 
   const getProducts = await prisma.product.findMany({
     where: {
-      id: req.userId,
+      userId: req.userId,
     },
     select: {
       id: true,
