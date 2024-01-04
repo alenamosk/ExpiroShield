@@ -12,3 +12,8 @@
   display: flex;
   width: 60px;
 }
+
+.vertical-form {
+  display: flex;
+  flex-direction: column;
+}
