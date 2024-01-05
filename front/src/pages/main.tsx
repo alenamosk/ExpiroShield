@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Product } from "@/types/types";
 import { useEffect, useState } from "react";
 import NavBar from "@/components/NavBar";
+import Link from "next/link";
 
 const Main = () => {
   const [products, setProducts] = useState<Product[] | []>([]);
@@ -33,7 +34,9 @@ const Main = () => {
         <div>
           {products.map((product) => (
             <div key={product.id}>
-              <h2>{product.prName}</h2>
+              <h2>
+                <Link href={`products/${product.id}`}>{product.prName}</Link>
+              </h2>
 
               <Image
                 className="image"

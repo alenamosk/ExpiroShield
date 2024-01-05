@@ -5,10 +5,8 @@ export interface Product {
   opened: Date;
   expiresInDays: number;
   imgUrl: string;
-  user: User[];
-  userId: number;
-  category: Category[];
-  categoryId: number;
+  user: User;
+  category: Category;
   description: string;
   important: boolean;
 }
