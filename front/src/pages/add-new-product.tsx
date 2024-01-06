@@ -24,6 +24,14 @@ const FormText = () => {
 
   const [categories, setCategories] = useState<Category[]>([]);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DataFromForm>({
+    resolver: zodResolver(dataFromFormValidator),
+  });
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -40,20 +48,15 @@ const FormText = () => {
     fetchCategories();
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<DataFromForm>({
-    resolver: zodResolver(dataFromFormValidator),
-  });
-
   const handleFormSubmit = async (data: DataFromForm) => {
     try {
+      const tokenFromLS = localStorage.getItem("token");
+
       const response = await fetch("http://localhost:3001/add-new-product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + tokenFromLS,
         },
         body: JSON.stringify({
           prName: data.prName,
@@ -70,8 +73,8 @@ const FormText = () => {
       if (response.ok) {
         const jsonResponse = await response.json();
         console.log("Product added successfully:", jsonResponse);
-        localStorage.setItem("token", jsonResponse.token);
-        router.push("/main");
+        const id = jsonResponse.newProduct.id;
+        router.push(`/products/${id}`);
       } else {
         console.log("Product addition failed:", response.status);
       }
@@ -115,7 +118,7 @@ const FormText = () => {
         )}
 
         <label htmlFor="imgUrl">Upload a photo of the product</label>
-        <input type="file" id="imgUrl" {...register("imgUrl")}></input>
+        <input type="text" id="imgUrl" {...register("imgUrl")}></input>
         {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>}
 
         <label htmlFor="categoryId">Choose a category</label>
