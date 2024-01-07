@@ -21,3 +21,19 @@
   display: flex;
   flex-direction: column;
 }
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  color: #7c2d12;
+}
+
+.vertical-timeline-element-content {
+  box-shadow: 0 0.25em 0.5em 0 rgba(55, 4, 4, 0.283),
+    0 0.4em 1.25em 0 rgba(55, 4, 4, 0.283) !important;
+  padding: 2em 3em !important;
+}
+
+.date {
+  color: #7c2d12;
+}
