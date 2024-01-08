@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { json } from "express";
 import { toToken } from "./auth/jwt";
 import { date, z } from "zod";
+import { add, compareDesc, isBefore } from "date-fns";
 
 const app = express();
 
@@ -173,7 +174,7 @@ app.get("/profile", AuthMiddleware, async (req: AuthRequest, res) => {
 
   res.send(userProfile);
 });
-
+// Call this /products/me
 app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
   if (!req.userId) {
     res.status(401).send({ message: "User not authenticated" });
@@ -213,14 +214,41 @@ app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
     },
   });
 
-  if (!getProducts) {
+  if (!getProducts || getProducts.length === 0) {
     res.status(404).send({
       message: "Products not found",
     });
     return;
   }
 
-  res.send(getProducts);
+  const mappedProducts = getProducts.map((product) => {
+    // If there is no opened data, use expires
+    if (!product.opened) {
+      return {
+        ...product,
+        expires: product.expires,
+      };
+    }
+
+    const expiresDateNew = add(new Date(product.opened), {
+      days: product.expiresInDays,
+    });
+    const expiresDateDB = new Date(product.expires);
+
+    // Check if opened + expires in days is earlier than expires
+    const useDate = isBefore(expiresDateNew, expiresDateDB);
+
+    return {
+      ...product,
+      expires: useDate ? expiresDateNew : new Date(product.expires),
+    };
+  });
+
+  const sortedProducts = mappedProducts.sort((b, a) =>
+    compareDesc(new Date(a.expires), new Date(b.expires))
+  );
+
+  res.send(sortedProducts);
 });
 
 const productValidator = z.object({

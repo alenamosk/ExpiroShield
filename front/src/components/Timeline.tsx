@@ -10,6 +10,7 @@ import {
   ShieldCheckIcon,
   ShieldExclamationIcon,
 } from "@heroicons/react/24/outline";
+import BottleIcon from "./BottleIcon";
 
 const Timeline = () => {
   const [products, setProducts] = useState<Product[] | []>([]);
@@ -49,9 +50,9 @@ const Timeline = () => {
               dateClassName="date"
               icon={
                 product.important ? (
-                  <ShieldExclamationIcon className="w-10  p-1 z-20 fill-red-500" />
+                  <BottleIcon fill="red" stroke="white" />
                 ) : (
-                  <ShieldCheckIcon className="w-10 p-1 z-20 fill-green-400" />
+                  <BottleIcon fill="none" stroke="black" />
                 )
               }
             >
@@ -63,7 +64,7 @@ const Timeline = () => {
           ))}
         </VerticalTimeline>
       ) : (
-        <div>Loading, or not found...</div>
+        <p>Loading</p>
       )}
     </>
   );
