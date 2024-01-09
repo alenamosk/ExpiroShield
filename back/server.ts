@@ -240,7 +240,7 @@ app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
 
     return {
       ...product,
-      expires: useDate ? expiresDateNew : new Date(product.expires),
+      expires: useDate ? expiresDateNew : expiresDateDB,
     };
   });
 
@@ -302,6 +302,32 @@ app.post("/add-new-product", AuthMiddleware, async (req: AuthRequest, res) => {
   } catch (error) {
     res.status(400).send({ message: "Failed to add a wish! " + error });
   }
+});
+
+require("dotenv").config();
+
+const crypto = require("crypto");
+const uuid = require("uuid");
+
+app.get("/authenticationEndpoint", (req, res) => {
+  const token = req.query.token || uuid.v4();
+  const expire = req.query.expire || Math.floor(Date.now() / 1000) + 2400;
+  const privateAPIKey = process.env.IMAGEKIT_PRIVATE_KEY;
+
+  const signature = crypto
+    .createHmac("sha1", privateAPIKey)
+    .update(token + expire)
+    .digest("hex");
+
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+  });
+
+  res.status(200).json({
+    token,
+    expire,
+    signature,
+  });
 });
 
 app.listen(port, () => {

@@ -118,7 +118,7 @@ const FormText = () => {
         )}
 
         <label htmlFor="imgUrl">Upload a photo of the product</label>
-        <input type="text" id="imgUrl" {...register("imgUrl")}></input>
+        <input type="file" id="imgUrl" {...register("imgUrl")}></input>
         {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>}
 
         <label htmlFor="categoryId">Choose a category</label>
