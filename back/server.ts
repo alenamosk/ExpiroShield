@@ -4,7 +4,7 @@ import { AuthMiddleware, AuthRequest } from "./auth/middleware";
 import { PrismaClient } from "@prisma/client";
 import { json } from "express";
 import { toToken } from "./auth/jwt";
-import { date, z } from "zod";
+import { z } from "zod";
 import { add, compareDesc, isBefore } from "date-fns";
 
 const app = express();

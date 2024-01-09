@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import NavBar from "@/components/NavBar";
 import { Category } from "@/types/types";
 import { useEffect, useState } from "react";
+import { IKContext, IKImage, IKUpload } from "imagekitio-react";
+import Product from "./products/[productId]";
+import { error } from "console";
 
 const dataFromFormValidator = z.object({
   prName: z.string(),
@@ -47,6 +50,37 @@ const FormText = () => {
     };
     fetchCategories();
   }, []);
+
+  const publicKey = "public_E4sa9jl7zQRsEY6MhOvBe7OV2J4=";
+  const urlEndpoint = "https://ik.imagekit.io/rhnxhgxw2";
+  const authenticator = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/authenticationEndpoint"
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(
+          `Request failed with status ${response.status}: ${errorText}`
+        );
+      }
+
+      const data = await response.json();
+      const { signature, expire, token } = data;
+      return { signature, expire, token };
+    } catch (error) {
+      console.error("Authentication request failed:", error);
+    }
+  };
+
+  const onError = (err: any) => {
+    console.log("Error", err);
+  };
+
+  const onSuccess = (res: any) => {
+    console.log("Success", res);
+  };
 
   const handleFormSubmit = async (data: DataFromForm) => {
     try {
@@ -118,7 +152,19 @@ const FormText = () => {
         )}
 
         <label htmlFor="imgUrl">Upload a photo of the product</label>
-        <input type="file" id="imgUrl" {...register("imgUrl")}></input>
+        <IKContext
+          publicKey={publicKey}
+          urlEndpoint={urlEndpoint}
+          authenticator={authenticator}
+        >
+          <IKUpload
+            fileName="test-upload.png"
+            onError={onError}
+            onSuccess={onSuccess}
+          />
+          {/* <IKUpload fileName={`product_${Date.now()}.jpg`} /> */}
+        </IKContext>
+        {/* <input type="file" id="imgUrl" {...register("imgUrl")}></input> */}
         {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>}
 
         <label htmlFor="categoryId">Choose a category</label>
