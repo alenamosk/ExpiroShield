@@ -203,7 +203,12 @@ const FormText = () => {
         {/* {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>} */}
 
         <label htmlFor="categoryId">Choose a category</label>
-        <select id="categoryId" {...register("categoryId")}>
+        <select
+          id="categoryId"
+          {...register("categoryId")}
+          defaultValue={"placeholder"}
+        >
+          <option value={"placeholder"}>Select category</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.catName}
