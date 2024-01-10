@@ -4,8 +4,10 @@ import Timeline from "@/components/Timeline";
 const Main = () => {
   return (
     <>
-      <NavBar />
-      <Timeline />
+      <div className="timeline-main">
+        <NavBar />
+        <Timeline />
+      </div>
     </>
   );
 };

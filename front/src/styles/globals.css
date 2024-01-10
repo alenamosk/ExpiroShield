@@ -22,18 +22,62 @@
   flex-direction: column;
 }
 
-.title {
-  text-align: center;
-  font-weight: bold;
-  color: #7c2d12;
+.timeline-main {
+  background-image: url("/exp.webp.1.webp");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-attachment: fixed;
+  background-size: contain;
+  background-color: #f4e8d6;
 }
 
-.vertical-timeline-element-content {
-  box-shadow: 0 0.25em 0.5em 0 rgba(55, 4, 4, 0.283),
-    0 0.4em 1.25em 0 rgba(55, 4, 4, 0.283) !important;
-  padding: 2em 3em !important;
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #548982;
+}
+
+h3 {
+  justify-items: center;
+  color: #88593a;
+}
+
+.vertical-timeline-element-content.bounce-in {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.vertical-timeline-element-content-arrow {
+  border-right: 7px solid transparent !important;
 }
 
 .date {
-  color: #7c2d12;
+  color: #f97316;
+}
+
+.vertical-timeline-element .vertical-timeline-element-content {
+  border-bottom: 0.5px solid #548982;
+  width: 75%;
+}
+
+.vertical-timeline-custom-line.vertical-timeline.vertical-timeline--animate.vertical-timeline--two-columns {
+  width: 75%;
+}
+
+.vertical-timeline.vertical-timeline-custom-line::before {
+  background: #548982;
+  width: 2px;
+}
+
+.vertical-timeline.vertical-timeline-custom-line
+  .vertical-timeline-element
+  .vertical-timeline-element-icon {
+  box-shadow: 0 0 0 2px #548982, inset 0 2px 0 rgba(0, 0, 0, 0.08),
+    0 2px 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.vertical-timeline-custom-line.vertical-timeline.vertical-timeline--animate.vertical-timeline--two-columns {
+  box-shadow: none;
 }

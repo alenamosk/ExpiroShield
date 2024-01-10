@@ -35,10 +35,12 @@ const Timeline = () => {
 
   return (
     <>
-      <h1 className="title">Your products</h1>
+      <div>
+        <h1 className="title">Your products</h1>
+      </div>
 
       {products.length > 0 ? (
-        <VerticalTimeline>
+        <VerticalTimeline className="vertical-timeline-custom-line">
           {products.map((product) => (
             <VerticalTimelineElement
               key={product.id}
@@ -48,18 +50,19 @@ const Timeline = () => {
                 day: "numeric",
               })}
               dateClassName="date"
+              className="vertical-timeline-element"
+              iconStyle={{ background: "#ffedd5" }}
               icon={
                 product.important ? (
-                  <BottleIcon fill="red" stroke="white" />
+                  <BottleIcon fill="#f97316" stroke="#7c2d12" />
                 ) : (
-                  <BottleIcon fill="none" stroke="black" />
+                  <BottleIcon fill="none" stroke="#7c2d12" />
                 )
               }
             >
               <h3 className="vertical-timeline-element-title">
                 <Link href={`products/${product.id}`}>{product.prName}</Link>
               </h3>
-              <div className="image-container"></div>
             </VerticalTimelineElement>
           ))}
         </VerticalTimeline>
