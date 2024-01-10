@@ -8,13 +8,14 @@ import { useEffect, useState } from "react";
 import { IKContext, IKImage, IKUpload } from "imagekitio-react";
 import Product from "./products/[productId]";
 import { error } from "console";
+import Image from "next/image";
 
 const dataFromFormValidator = z.object({
   prName: z.string(),
   expires: z.coerce.date(),
   opened: z.coerce.date(),
   expiresInDays: z.number().positive(),
-  imgUrl: z.string(),
+  // imgUrl: z.string(),
   categoryId: z.coerce.number().positive(),
   description: z.string(),
   important: z.boolean(),
@@ -26,6 +27,7 @@ const FormText = () => {
   const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([]);
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
 
   const {
     register,
@@ -79,10 +81,15 @@ const FormText = () => {
   };
 
   const onSuccess = (res: any) => {
+    setImgUrl(res.url);
     console.log("Success", res);
   };
 
   const handleFormSubmit = async (data: DataFromForm) => {
+    if (imgUrl === null) {
+      console.log("Img url was not send");
+      return;
+    }
     try {
       const tokenFromLS = localStorage.getItem("token");
 
@@ -97,7 +104,7 @@ const FormText = () => {
           expires: data.expires,
           opened: data.opened,
           expiresInDays: data.expiresInDays,
-          imgUrl: data.imgUrl,
+          imgUrl: imgUrl,
           categoryId: data.categoryId,
           description: data.description,
           important: data.important,
@@ -117,6 +124,8 @@ const FormText = () => {
     }
   };
 
+  // console.log(errors);
+
   return (
     <main>
       <NavBar />
@@ -129,7 +138,13 @@ const FormText = () => {
         <label htmlFor="expires">
           Expiration date indicated on the product
         </label>
-        <input type="date" id="expires" {...register("expires")}></input>
+        <input
+          type="date"
+          min="2010-12-31"
+          max="2030-12-31"
+          id="expires"
+          {...register("expires")}
+        ></input>
         {errors.expires && (
           <p className="error-msg">{errors.expires.message}</p>
         )}
@@ -143,29 +158,49 @@ const FormText = () => {
         </label>
         <input
           type="number"
+          min="2010-12-31"
+          max="2030-12-31"
           id="expiresInDays"
           {...register("expiresInDays", { valueAsNumber: true })}
           placeholder="3 months = 90 days, 6 months = 180 days"
         ></input>
+
         {errors.expiresInDays && (
           <p className="error-msg">{errors.expiresInDays.message}</p>
         )}
 
         <label htmlFor="imgUrl">Upload a photo of the product</label>
+        {imgUrl && (
+          <div>
+            <Image src={imgUrl} width={100} height={100} alt="product" />
+            <button
+              onClick={() => {
+                setImgUrl(null);
+              }}
+            >
+              Remove
+            </button>
+          </div>
+        )}
         <IKContext
           publicKey={publicKey}
           urlEndpoint={urlEndpoint}
           authenticator={authenticator}
         >
-          <IKUpload
+          {/* <IKUpload
             fileName="test-upload.png"
             onError={onError}
             onSuccess={onSuccess}
+          /> */}
+          <IKUpload
+            fileName="product_"
+            onError={onError}
+            onSuccess={onSuccess}
+            // {...register("imgUrl")}
           />
-          {/* <IKUpload fileName={`product_${Date.now()}.jpg`} /> */}
         </IKContext>
-        {/* <input type="file" id="imgUrl" {...register("imgUrl")}></input> */}
-        {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>}
+        {/* <input type="file" id="imgUrl"></input> */}
+        {/* {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>} */}
 
         <label htmlFor="categoryId">Choose a category</label>
         <select id="categoryId" {...register("categoryId")}>
