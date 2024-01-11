@@ -25,28 +25,38 @@ const NavBar = () => {
       <>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <Link className="flex flex-shrink-0 items-center" href="/">
-                <img src="Logo(1).png " className="logo"></img>
-              </Link>
-            </div>
-
-            <div className="flex space-x-4">
-              <a
-                href="/login"
-                className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >
-                Login
+            <div className="flex space-x-4 sm:mr-6">
+              <a href="/">
+                <img
+                  className="h-8 w-auto sm:h-10 mx-4"
+                  src="Logo(1).png"
+                  alt="logo"
+                />
               </a>
             </div>
 
-            <div className="flex space-x-4">
-              <a
-                href="/register"
-                className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >
-                Register
-              </a>
+            <div className="flex ">
+              <div className="sm:ml-6 sm:block pxl-3">
+                <div className="flex space-x-4">
+                  <a
+                    href="/login"
+                    className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    Login
+                  </a>
+                </div>
+              </div>
+
+              <div className="sm:ml-6 sm:block px-2">
+                <div className="flex space-x-4">
+                  <a
+                    href="/register"
+                    className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    Register
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -69,12 +79,12 @@ const NavBar = () => {
               </a>
             </div>
 
-            <div className="flex">
-              <div className="sm:ml-6 sm:block ml-auto">
+            <div className="flex ">
+              <div className="sm:ml-6 sm:block pxl-3">
                 <div className="flex space-x-4">
                   <a
                     href="/add-new-product"
-                    className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-orange-900 hover:bg-orange-100 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     <div className="flex h-8 sm:hidden">
                       <ShieldIcon fill="#7c2d12" stroke="none" />
@@ -84,13 +94,13 @@ const NavBar = () => {
                 </div>
               </div>
 
-              <div className="sm:ml-6 sm:block">
+              <div className="sm:ml-6 sm:block px-2">
                 <div className="flex space-x-4">
                   <a
                     href="/main"
-                    className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-orange-900 hover:bg-orange-100 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
-                    <div className="flex h-8 sm:hidden">
+                    <div className="flex h-8 sm:hidden ">
                       <ProductsIcon fill="#7c2d12" stroke="none" />
                     </div>
                     <span className="hidden sm:inline">My products page</span>
