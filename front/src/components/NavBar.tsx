@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import ProductsIcon from "./ProductsIcon";
+import ShieldIcon from "./ShieldIcon";
 
 const NavBar = () => {
   const [token, setToken] = useState<null | string>(null);
@@ -59,28 +61,40 @@ const NavBar = () => {
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex flex-shrink-0 items-center">
-                <img className="h-8 w-auto" src="Logo(1).png" alt="logo" />
-              </div>
-            </div>
-
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                <a
-                  href="/add-new-product"
-                  className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  Add new product
+                <a href="/">
+                  <img
+                    className="h-8 w-auto sm:h-10"
+                    src="Logo(1).png"
+                    alt="logo"
+                  />
                 </a>
               </div>
             </div>
 
-            <div className="hidden sm:ml-6 sm:block">
+            <div className="sm:ml-6 sm:block">
+              <div className="flex space-x-4">
+                <a
+                  href="/add-new-product"
+                  className="text-orange-900 hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                >
+                  <div className="flex w-10 h-10 sm:hidden">
+                    <ShieldIcon fill="#7c2d12" stroke="none" />
+                  </div>
+                  <span className="hidden sm:inline">Add new product</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 <a
                   href="/main"
-                  className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className="text-orange-900 hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
-                  My products page
+                  <div className="flex w-10 h-10 sm:hidden">
+                    <ProductsIcon fill="#7c2d12" stroke="none" />
+                  </div>
+                  <span className="hidden sm:inline">My products page</span>
                 </a>
               </div>
             </div>
