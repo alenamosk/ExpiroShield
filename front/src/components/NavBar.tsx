@@ -58,26 +58,24 @@ const NavBar = () => {
     return (
       <>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-16 items-center justify-between">
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <div className="flex flex-shrink-0 items-center">
-                <a href="/">
-                  <img
-                    className="h-8 w-auto sm:h-10"
-                    src="Logo(1).png"
-                    alt="logo"
-                  />
-                </a>
-              </div>
+          <div className="relative flex h-16 items-center justify-end">
+            <div className="flex space-x-4 sm:mr-6">
+              <a href="/">
+                <img
+                  className="h-8 w-auto sm:h-10 mx-4"
+                  src="Logo(1).png"
+                  alt="logo"
+                />
+              </a>
             </div>
 
-            <div className="sm:ml-6 sm:block">
+            <div className="sm:ml-6 sm:block ml-auto">
               <div className="flex space-x-4">
                 <a
                   href="/add-new-product"
-                  className="text-orange-900 hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
-                  <div className="flex w-10 h-10 sm:hidden">
+                  <div className="flex h-8 sm:hidden">
                     <ShieldIcon fill="#7c2d12" stroke="none" />
                   </div>
                   <span className="hidden sm:inline">Add new product</span>
@@ -89,9 +87,9 @@ const NavBar = () => {
               <div className="flex space-x-4">
                 <a
                   href="/main"
-                  className="text-orange-900 hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
-                  <div className="flex w-10 h-10 sm:hidden">
+                  <div className="flex h-8 sm:hidden">
                     <ProductsIcon fill="#7c2d12" stroke="none" />
                   </div>
                   <span className="hidden sm:inline">My products page</span>
