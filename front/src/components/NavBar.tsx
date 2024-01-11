@@ -58,7 +58,7 @@ const NavBar = () => {
     return (
       <>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-16 items-center justify-end">
+          <div className="relative flex h-16 items-center justify-between">
             <div className="flex space-x-4 sm:mr-6">
               <a href="/">
                 <img
@@ -69,41 +69,43 @@ const NavBar = () => {
               </a>
             </div>
 
-            <div className="sm:ml-6 sm:block ml-auto">
-              <div className="flex space-x-4">
-                <a
-                  href="/add-new-product"
-                  className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  <div className="flex h-8 sm:hidden">
-                    <ShieldIcon fill="#7c2d12" stroke="none" />
-                  </div>
-                  <span className="hidden sm:inline">Add new product</span>
-                </a>
+            <div className="flex">
+              <div className="sm:ml-6 sm:block ml-auto">
+                <div className="flex space-x-4">
+                  <a
+                    href="/add-new-product"
+                    className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    <div className="flex h-8 sm:hidden">
+                      <ShieldIcon fill="#7c2d12" stroke="none" />
+                    </div>
+                    <span className="hidden sm:inline">Add new product</span>
+                  </a>
+                </div>
               </div>
-            </div>
 
-            <div className="sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                <a
-                  href="/main"
-                  className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  <div className="flex h-8 sm:hidden">
-                    <ProductsIcon fill="#7c2d12" stroke="none" />
-                  </div>
-                  <span className="hidden sm:inline">My products page</span>
-                </a>
+              <div className="sm:ml-6 sm:block">
+                <div className="flex space-x-4">
+                  <a
+                    href="/main"
+                    className="text-orange-900 hover:bg-orange-50 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    <div className="flex h-8 sm:hidden">
+                      <ProductsIcon fill="#7c2d12" stroke="none" />
+                    </div>
+                    <span className="hidden sm:inline">My products page</span>
+                  </a>
+                </div>
               </div>
-            </div>
 
-            <div className="flex space-x-4 sm:ml-6">
-              <button
-                className=" bg-orange-700 text-white rounded-md px-3 py-2 text-sm font-medium"
-                onClick={handleLogout}
-              >
-                Log Out
-              </button>
+              <div className="flex space-x-4 sm:ml-6">
+                <button
+                  className=" bg-orange-700 text-white rounded-md px-3 py-2 text-sm font-medium"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              </div>
             </div>
           </div>
         </div>
