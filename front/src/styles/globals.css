@@ -17,11 +17,6 @@
   width: 60px;
 }
 
-.vertical-form {
-  display: flex;
-  flex-direction: column;
-}
-
 .timeline-main {
   background-image: url("/exp.webp.1.webp");
   background-repeat: no-repeat;
@@ -80,4 +75,9 @@ h3 {
 
 .vertical-timeline-custom-line.vertical-timeline.vertical-timeline--animate.vertical-timeline--two-columns {
   box-shadow: none;
+}
+
+.icon-small {
+  width: 20px;
+  height: 20px;
 }

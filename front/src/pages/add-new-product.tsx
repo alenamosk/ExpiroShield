@@ -129,120 +129,153 @@ const FormText = () => {
   return (
     <main>
       <NavBar />
+
       <h1>Add a new product</h1>
-      <form className="vertical-form" onSubmit={handleSubmit(handleFormSubmit)}>
-        <label htmlFor="prName">Name of the product</label>
-        <input id="prName" {...register("prName")}></input>
-        {errors.prName && <p className="error-msg">{errors.prName.message}</p>}
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        <div className="flex">
+          <form
+            className="flex flex-col p-8"
+            onSubmit={handleSubmit(handleFormSubmit)}
+          >
+            <label htmlFor="prName">Name of the product</label>
+            <input
+              id="prName"
+              {...register("prName")}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            ></input>
+            {errors.prName && (
+              <p className="error-msg">{errors.prName.message}</p>
+            )}
 
-        <label htmlFor="expires">
-          Expiration date indicated on the product
-        </label>
-        <input
-          type="date"
-          min="2010-12-31"
-          max="2030-12-31"
-          id="expires"
-          {...register("expires")}
-        ></input>
-        {errors.expires && (
-          <p className="error-msg">{errors.expires.message}</p>
-        )}
+            <label htmlFor="expires">
+              Expiration date indicated on the product
+            </label>
+            <input
+              type="date"
+              min="2010-12-31"
+              max="2030-12-31"
+              id="expires"
+              {...register("expires")}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            ></input>
+            {errors.expires && (
+              <p className="error-msg">{errors.expires.message}</p>
+            )}
 
-        <label htmlFor="opened">The day you opened the product</label>
-        <input type="date" id="opened" {...register("opened")}></input>
-        {errors.opened && <p className="error-msg">{errors.opened.message}</p>}
+            <label htmlFor="opened">The day you opened the product</label>
+            <input
+              type="date"
+              id="opened"
+              {...register("opened")}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            ></input>
+            {errors.opened && (
+              <p className="error-msg">{errors.opened.message}</p>
+            )}
 
-        <label htmlFor="expiresInDays">
-          Product expiration date after opening (in days)
-        </label>
-        <input
-          type="number"
-          min="2010-12-31"
-          max="2030-12-31"
-          id="expiresInDays"
-          {...register("expiresInDays", { valueAsNumber: true })}
-          placeholder="3 months = 90 days, 6 months = 180 days"
-        ></input>
+            <label htmlFor="expiresInDays">
+              Product expiration date after opening (in days)
+            </label>
+            <input
+              type="number"
+              min="2010-12-31"
+              max="2030-12-31"
+              id="expiresInDays"
+              {...register("expiresInDays", { valueAsNumber: true })}
+              placeholder="3 months = 90 days, 6 months = 180 days"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            ></input>
 
-        {errors.expiresInDays && (
-          <p className="error-msg">{errors.expiresInDays.message}</p>
-        )}
+            {errors.expiresInDays && (
+              <p className="error-msg">{errors.expiresInDays.message}</p>
+            )}
 
-        <label htmlFor="imgUrl">Upload a photo of the product</label>
-        {imgUrl && (
-          <div>
-            <Image src={imgUrl} width={100} height={100} alt="product" />
-            <button
-              onClick={() => {
-                setImgUrl(null);
-              }}
+            <label htmlFor="imgUrl">Upload a photo of the product</label>
+            {imgUrl && (
+              <div>
+                <Image src={imgUrl} width={100} height={100} alt="product" />
+                <button
+                  onClick={() => {
+                    setImgUrl(null);
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+            <IKContext
+              publicKey={publicKey}
+              urlEndpoint={urlEndpoint}
+              authenticator={authenticator}
             >
-              Remove
+              <IKUpload
+                fileName="product_"
+                onError={onError}
+                onSuccess={onSuccess}
+              />
+            </IKContext>
+
+            <label htmlFor="categoryId">Choose a category</label>
+            <select
+              id="categoryId"
+              {...register("categoryId")}
+              defaultValue={"placeholder"}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option value={"placeholder"}>Select category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.catName}
+                </option>
+              ))}
+            </select>
+            {errors.categoryId && (
+              <p className="error-msg">{errors.categoryId.message}</p>
+            )}
+
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              {...register("description")}
+              placeholder="May include instructions, ingredients, storage conditions and everything that is important for you about the product"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            ></textarea>
+            {errors.description && (
+              <p className="error-msg">{errors.description.message}</p>
+            )}
+
+            <label htmlFor="important">
+              Is the product important to track?
+            </label>
+            <input
+              type="checkbox"
+              id="important"
+              {...register("important")}
+              className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600"
+            ></input>
+            {errors.important && (
+              <p className="error-msg">{errors.important.message}</p>
+            )}
+
+            <button
+              type="submit"
+              id="submit"
+              className="rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+            >
+              Submit
             </button>
+          </form>
+          <div>
+            {/* <Image src="/cream.JPG" width={100} height={200} alt="cream" /> */}
+            {/* "h-48 w-full object-cover md:h-full md:w-100" */}
+            <img
+              className="h-full w-full object-cover md:h-full md:w-48"
+              src="cream.JPG"
+              alt="Logo"
+            />
           </div>
-        )}
-        <IKContext
-          publicKey={publicKey}
-          urlEndpoint={urlEndpoint}
-          authenticator={authenticator}
-        >
-          {/* <IKUpload
-            fileName="test-upload.png"
-            onError={onError}
-            onSuccess={onSuccess}
-          /> */}
-          <IKUpload
-            fileName="product_"
-            onError={onError}
-            onSuccess={onSuccess}
-            // {...register("imgUrl")}
-          />
-        </IKContext>
-        {/* <input type="file" id="imgUrl"></input> */}
-        {/* {errors.imgUrl && <p className="error-msg">{errors.imgUrl.message}</p>} */}
-
-        <label htmlFor="categoryId">Choose a category</label>
-        <select
-          id="categoryId"
-          {...register("categoryId")}
-          defaultValue={"placeholder"}
-        >
-          <option value={"placeholder"}>Select category</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.catName}
-            </option>
-          ))}
-        </select>
-        {errors.categoryId && (
-          <p className="error-msg">{errors.categoryId.message}</p>
-        )}
-
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          {...register("description")}
-          placeholder="May include instructions, ingredients, storage conditions and everything that is important for you about the product"
-        ></textarea>
-        {errors.description && (
-          <p className="error-msg">{errors.description.message}</p>
-        )}
-
-        <label htmlFor="important">Is the product important to track?</label>
-        <input
-          type="checkbox"
-          id="important"
-          {...register("important")}
-        ></input>
-        {errors.important && (
-          <p className="error-msg">{errors.important.message}</p>
-        )}
-
-        <button type="submit" id="submit">
-          Submit
-        </button>
-      </form>
+        </div>
+      </div>
     </main>
   );
 };

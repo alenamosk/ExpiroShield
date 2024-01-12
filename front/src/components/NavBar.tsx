@@ -29,7 +29,7 @@ const NavBar = () => {
               <a href="/">
                 <img
                   className="h-8 w-auto sm:h-10 mx-4"
-                  src="Logo(1).png"
+                  src="/Logo.png"
                   alt="logo"
                 />
               </a>
@@ -73,7 +73,7 @@ const NavBar = () => {
               <a href="/">
                 <img
                   className="h-8 w-auto sm:h-10 mx-4"
-                  src="Logo(1).png"
+                  src="/Logo.png"
                   alt="logo"
                 />
               </a>

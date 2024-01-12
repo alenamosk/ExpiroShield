@@ -3,6 +3,7 @@ import NavBar from "@/components/NavBar";
 import { Product } from "@/types/types";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import BottleIcon from "@/components/BottleIcon";
 
 const Product = () => {
   const router = useRouter();
@@ -46,21 +47,39 @@ const Product = () => {
               />
             </div>
             <div className="p-8">
-              <h1 className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
+              <h1 className="block mt-1 text-lg leading-tight font-medium text-black">
+                <span
+                  className="icon-small"
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                >
+                  {product.important ? (
+                    <BottleIcon fill="#f97316" stroke="#7c2d12" />
+                  ) : (
+                    <BottleIcon fill="none" stroke="#7c2d12" />
+                  )}
+                </span>
                 {product.prName}
               </h1>
               <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
-                Expires: {new Date(product.expires).toLocaleString()}
+                Expires:{" "}
+                {new Date(product.expires).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
               </div>
-              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
-                Opened: {new Date(product.opened).toLocaleString()}
+
+              {/* <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
+                Opened:{" "}
+                {new Date(product.opened).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
               </div>
               <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
                 Expires in days: {product.expiresInDays}
-              </div>
-              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
-                Important: {product.important ? "yes" : "no"}
-              </div>
+              </div> */}
 
               <p className="mt-2 text-slate-500">
                 Description: {product.description}
