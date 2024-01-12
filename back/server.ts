@@ -61,6 +61,21 @@ app.get("/products/:id", async (req, res) => {
     res.status(404).send({ message: "Product with that id not found" });
     return;
   }
+
+  if (!oneProduct.opened) {
+    oneProduct.expires = oneProduct.expires;
+  } else {
+    const expiresDateNew = add(new Date(oneProduct.opened), {
+      days: oneProduct.expiresInDays,
+    });
+
+    const expiresDateDB = new Date(oneProduct.expires);
+
+    const useDate = isBefore(expiresDateNew, expiresDateDB);
+
+    oneProduct.expires = useDate ? expiresDateNew : expiresDateDB;
+  }
+
   res.send(oneProduct);
 });
 
