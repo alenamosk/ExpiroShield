@@ -33,6 +33,26 @@ const Product = () => {
     fetchData();
   }, [idFromUrl]);
 
+  const handleDelete = async (idFromUrl: number) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/products/delete/${idFromUrl}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Product deleted successfully");
+        router.push("/main");
+      } else {
+        console.error("Error deleting product");
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   return (
     <>
       <NavBar />
@@ -70,14 +90,20 @@ const Product = () => {
                     <EditIcon fill="none" stroke="#7c2d12" />
                   </Link>
                 </span>
-                <span
+                {/* <span
                   className="icon-small"
                   style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
                   <Link className="delete" href="/main">
                     <DeleteIcon fill="none" stroke="#7c2d12" />
                   </Link>
-                </span>
+                </span> */}
+                <button
+                  onClick={(e: any) => handleDelete(product?.id)}
+                  className="icon-small"
+                >
+                  <DeleteIcon fill="none" stroke="#7c2d12" />
+                </button>
               </h1>
               <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
                 Expires:{" "}
