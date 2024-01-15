@@ -40,7 +40,7 @@ const Login = () => {
         const jsonResponse = await response.json();
         console.log("Login Successful:", jsonResponse);
         localStorage.setItem("token", jsonResponse.token);
-        router.push("/main");
+        router.push("/my-products");
       } else {
         console.log("Login failed:", response.status);
       }

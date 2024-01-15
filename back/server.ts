@@ -16,28 +16,34 @@ const port = 3001;
 
 const prisma = new PrismaClient();
 
-app.get("/products", async (req, res) => {
-  const allProducts = await prisma.product.findMany({
-    select: {
-      id: true,
-      prName: true,
-      expires: true,
-      opened: true,
-      expiresInDays: true,
-      imgUrl: true,
-      user: true,
-      userId: true,
-      category: true,
-      categoryId: true,
-      description: true,
-      important: true,
-    },
-  });
-  res.send(allProducts);
-});
+// app.get("/products", async (req, res) => {
+//   const allProducts = await prisma.product.findMany({
+//     select: {
+//       id: true,
+//       prName: true,
+//       expires: true,
+//       opened: true,
+//       expiresInDays: true,
+//       imgUrl: true,
+//       user: true,
+//       userId: true,
+//       category: true,
+//       categoryId: true,
+//       description: true,
+//       important: true,
+//     },
+//   });
+//   res.send(allProducts);
+// });
 
-app.get("/products/:id", async (req, res) => {
+app.get("/products/:id", AuthMiddleware, async (req: AuthRequest, res) => {
+  if (!req.userId) {
+    res.status(401).send({ message: "User not authenticated" });
+    return;
+  }
+  const userIdFromToken = req.userId;
   const idAsNumber = parseInt(req.params.id);
+
   const oneProduct = await prisma.product.findUnique({
     where: {
       id: idAsNumber,
@@ -59,6 +65,13 @@ app.get("/products/:id", async (req, res) => {
   });
   if (!oneProduct) {
     res.status(404).send({ message: "Product with that id not found" });
+    return;
+  }
+
+  if (oneProduct.userId !== userIdFromToken) {
+    res.status(403).send({
+      message: "Unauthorized: You do not have permission to see this product",
+    });
     return;
   }
 
@@ -99,22 +112,50 @@ app.patch("/products/edit/:id", async (req, res) => {
   }
 });
 
-app.delete("/products/delete/:id", async (req, res) => {
-  const idAsNumber = parseInt(req.params.id);
+app.delete(
+  "/products/delete/:id",
+  AuthMiddleware,
+  async (req: AuthRequest, res) => {
+    if (!req.userId) {
+      res.status(401).send({ message: "User not authenticated" });
+      return;
+    }
+    const userIdFromToken = req.userId;
+    const idAsNumber = parseInt(req.params.id);
 
-  try {
-    await prisma.product.delete({
-      where: {
-        id: idAsNumber,
-      },
-    });
+    try {
+      const product = await prisma.product.findUnique({
+        where: {
+          id: idAsNumber,
+        },
+      });
 
-    res.status(200).send({ message: "Product deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting product:", error);
-    res.status(500).send({ message: "Internal server error" });
+      if (!product) {
+        res.status(404).send({ message: "Product not found" });
+        return;
+      }
+
+      if (product.userId !== userIdFromToken) {
+        res.status(403).send({
+          message:
+            "Unauthorized: You do not have permission to delete this product",
+        });
+        return;
+      }
+
+      await prisma.product.delete({
+        where: {
+          id: idAsNumber,
+        },
+      });
+
+      res.status(200).send({ message: "Product deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      res.status(500).send({ message: "Internal server error" });
+    }
   }
-});
+);
 
 app.get("/categories", async (req, res) => {
   const allCategories = await prisma.category.findMany({
@@ -226,8 +267,9 @@ app.get("/profile", AuthMiddleware, async (req: AuthRequest, res) => {
 
   res.send(userProfile);
 });
+
 // Call this /products/me
-app.get("/main", AuthMiddleware, async (req: AuthRequest, res) => {
+app.get("/my-products", AuthMiddleware, async (req: AuthRequest, res) => {
   if (!req.userId) {
     res.status(401).send({ message: "User not authenticated" });
     return;

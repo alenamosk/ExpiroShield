@@ -1,7 +1,7 @@
 import NavBar from "@/components/NavBar";
 import Timeline from "@/components/Timeline";
 
-const Main = () => {
+const MyProducts = () => {
   return (
     <>
       <div className="bg-orange-50">
@@ -14,4 +14,4 @@ const Main = () => {
     </>
   );
 };
-export default Main;
+export default MyProducts;

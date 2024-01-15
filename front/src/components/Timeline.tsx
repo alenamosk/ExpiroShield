@@ -19,7 +19,7 @@ const Timeline = () => {
     const fetchData = async () => {
       try {
         const tokenFromLS = localStorage.getItem("token");
-        const response = await fetch("http://localhost:3001/main", {
+        const response = await fetch("http://localhost:3001/my-products", {
           headers: {
             Authorization: "Bearer " + tokenFromLS,
           },

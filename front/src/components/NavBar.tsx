@@ -97,7 +97,7 @@ const NavBar = () => {
               <div className="sm:ml-6 sm:block px-2">
                 <div className="flex space-x-4">
                   <a
-                    href="/main"
+                    href="/my-products"
                     className="text-orange-900 hover:bg-orange-100 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     <div className="flex h-8 sm:hidden ">
