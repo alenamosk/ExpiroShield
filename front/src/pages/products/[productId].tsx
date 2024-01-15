@@ -4,6 +4,8 @@ import { Product } from "@/types/types";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import BottleIcon from "@/components/BottleIcon";
+import EditIcon from "@/components/EditIcon";
+import Link from "next/link";
 
 const Product = () => {
   const router = useRouter();
@@ -58,7 +60,15 @@ const Product = () => {
                     <BottleIcon fill="none" stroke="#7c2d12" />
                   )}
                 </span>
-                {product.prName}
+                {product.prName}{" "}
+                <span
+                  className="icon-small"
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                >
+                  <Link className="edit" href={`/products/edit/${idFromUrl}`}>
+                    <EditIcon fill="none" stroke="#7c2d12" />
+                  </Link>
+                </span>
               </h1>
               <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
                 Expires:{" "}

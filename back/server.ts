@@ -79,6 +79,26 @@ app.get("/products/:id", async (req, res) => {
   res.send(oneProduct);
 });
 
+app.patch("/products/edit/:id", async (req, res) => {
+  const idAsNumber = parseInt(req.params.id);
+
+  const updateData = req.body;
+
+  try {
+    const updatedProduct = await prisma.product.update({
+      where: {
+        id: idAsNumber,
+      },
+      data: updateData,
+    });
+
+    res.send(updatedProduct);
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
 app.get("/categories", async (req, res) => {
   const allCategories = await prisma.category.findMany({
     select: {

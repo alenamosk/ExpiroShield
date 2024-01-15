@@ -269,7 +269,7 @@ const FormText = () => {
             {/* <Image src="/cream.JPG" width={100} height={200} alt="cream" /> */}
             {/* "h-48 w-full object-cover md:h-full md:w-100" */}
             <img
-              className="h-full w-full object-cover md:h-full md:w-48"
+              className="h-full w-full object-cover md:h-full "
               src="cream.JPG"
               alt="Logo"
             />
