@@ -99,6 +99,23 @@ app.patch("/products/edit/:id", async (req, res) => {
   }
 });
 
+app.delete("/products/delete/:id", async (req, res) => {
+  const idAsNumber = parseInt(req.params.id);
+
+  try {
+    await prisma.product.delete({
+      where: {
+        id: idAsNumber,
+      },
+    });
+
+    res.status(200).send({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
 app.get("/categories", async (req, res) => {
   const allCategories = await prisma.category.findMany({
     select: {

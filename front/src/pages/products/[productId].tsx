@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import BottleIcon from "@/components/BottleIcon";
 import EditIcon from "@/components/EditIcon";
 import Link from "next/link";
+import DeleteIcon from "@/components/DeleteIcon";
 
 const Product = () => {
   const router = useRouter();
@@ -67,6 +68,14 @@ const Product = () => {
                 >
                   <Link className="edit" href={`/products/edit/${idFromUrl}`}>
                     <EditIcon fill="none" stroke="#7c2d12" />
+                  </Link>
+                </span>
+                <span
+                  className="icon-small"
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                >
+                  <Link className="delete" href="/main">
+                    <DeleteIcon fill="none" stroke="#7c2d12" />
                   </Link>
                 </span>
               </h1>
