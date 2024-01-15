@@ -14,8 +14,6 @@ const Product = () => {
   const idFromUrl = router.query.productId;
   console.log(idFromUrl);
 
-  const tokenFromLS = localStorage.getItem("token");
-
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
@@ -24,6 +22,7 @@ const Product = () => {
         return;
       }
       if (localStorage.getItem("token")) {
+        const tokenFromLS = localStorage.getItem("token");
         const response = await fetch(
           `http://localhost:3001/products/${idFromUrl}`,
           {
@@ -42,6 +41,7 @@ const Product = () => {
 
   const handleDelete = async (idFromUrl: number) => {
     if (localStorage.getItem("token")) {
+      const tokenFromLS = localStorage.getItem("token");
       try {
         const response = await fetch(
           `http://localhost:3001/products/delete/${idFromUrl}`,

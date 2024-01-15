@@ -92,25 +92,84 @@ app.get("/products/:id", AuthMiddleware, async (req: AuthRequest, res) => {
   res.send(oneProduct);
 });
 
-app.patch("/products/edit/:id", async (req, res) => {
-  const idAsNumber = parseInt(req.params.id);
+// app.patch("/products/edit/:id", async (req, res) => {
+//   const idAsNumber = parseInt(req.params.id);
 
-  const updateData = req.body;
+//   const updateData = req.body;
 
-  try {
-    const updatedProduct = await prisma.product.update({
-      where: {
-        id: idAsNumber,
-      },
-      data: updateData,
-    });
+//   try {
+//     const updatedProduct = await prisma.product.update({
+//       where: {
+//         id: idAsNumber,
+//       },
+//       data: updateData,
+//     });
 
-    res.send(updatedProduct);
-  } catch (error) {
-    console.error("Error updating product:", error);
-    res.status(500).send({ message: "Internal server error" });
+//     res.send(updatedProduct);
+//   } catch (error) {
+//     console.error("Error updating product:", error);
+//     res.status(500).send({ message: "Internal server error" });
+//   }
+// });
+
+app.patch(
+  "/products/edit/:id",
+  AuthMiddleware,
+  async (req: AuthRequest, res) => {
+    if (!req.userId) {
+      res.status(401).send({ message: "User not authenticated" });
+      return;
+    }
+    const userIdFromToken = req.userId;
+    const idAsNumber = parseInt(req.params.id);
+    try {
+      const product = await prisma.product.findUnique({
+        where: {
+          id: idAsNumber,
+        },
+      });
+
+      if (!product) {
+        res.status(404).send({ message: "Product not found" });
+        return;
+      }
+
+      if (product.userId !== userIdFromToken) {
+        res.status(403).send({
+          message:
+            "Unauthorized: You do not have permission to update this product",
+        });
+        return;
+      }
+
+      try {
+        const updatedProduct = await prisma.product.update({
+          where: {
+            id: idAsNumber,
+          },
+
+          data: {
+            prName: req.body.prName,
+            expires: req.body.expires,
+            opened: req.body.opened,
+            expiresInDays: req.body.expiresInDays,
+            description: req.body.description,
+            important: req.body.important,
+          },
+        });
+        res
+          .status(201)
+          .send({ message: "New product has been updated", updatedProduct });
+      } catch (error) {
+        res
+          .status(400)
+          .send({ message: "Failed to update a product! " + error });
+      }
+    } catch (error) {
+      res.status(500).send({ message: "Internal server error" });
+    }
   }
-});
+);
 
 app.delete(
   "/products/delete/:id",
@@ -394,7 +453,7 @@ app.post("/add-new-product", AuthMiddleware, async (req: AuthRequest, res) => {
       .status(201)
       .send({ message: "New product has been created", newProduct });
   } catch (error) {
-    res.status(400).send({ message: "Failed to add a wish! " + error });
+    res.status(400).send({ message: "Failed to add a product! " + error });
   }
 });
 
