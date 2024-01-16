@@ -130,13 +130,13 @@ const FormText = () => {
     <main>
       <NavBar />
 
-      <h1 className="title">Add a new product</h1>
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         {/* <div className="flex"> */}
         <form
           className="flex flex-col p-8 space-y-2"
           onSubmit={handleSubmit(handleFormSubmit)}
         >
+          <h1 className="title">Add a new product</h1>
           <label htmlFor="prName">Name of the product</label>
           <input
             id="prName"

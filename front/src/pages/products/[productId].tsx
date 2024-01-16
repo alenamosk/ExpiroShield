@@ -98,7 +98,7 @@ const Product = () => {
                   className="icon-small"
                   style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
-                  <Link className="edit" href={`/products/edit/${idFromUrl}`}>
+                  <Link className="edit" href={`/edit/${idFromUrl}`}>
                     <EditIcon fill="none" stroke="#7c2d12" />
                   </Link>
                 </span>
@@ -110,12 +110,17 @@ const Product = () => {
                     <DeleteIcon fill="none" stroke="#7c2d12" />
                   </Link>
                 </span> */}
-                <button
-                  onClick={(e: any) => handleDelete(product?.id)}
+                <span
                   className="icon-small"
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
-                  <DeleteIcon fill="none" stroke="#7c2d12" />
-                </button>
+                  <button
+                    onClick={(e: any) => handleDelete(product?.id)}
+                    className="icon-small"
+                  >
+                    <DeleteIcon fill="none" stroke="#7c2d12" />
+                  </button>
+                </span>
               </h1>
               <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
                 Expires:{" "}
@@ -138,7 +143,7 @@ const Product = () => {
                 Expires in days: {product.expiresInDays}
               </div> */}
 
-              <p className="mt-2 text-slate-500">
+              <p className="mt-2 text-slate-500 text-justify ">
                 Description: {product.description}
               </p>
               <p className="mt-2 text-slate-500">
