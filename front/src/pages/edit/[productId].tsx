@@ -3,30 +3,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/router";
 import NavBar from "@/components/NavBar";
-import { Category, Product } from "@/types/types";
+import { Category, Product, ProductFromApi } from "@/types/types";
 import { useEffect, useState } from "react";
 import { IKContext, IKImage, IKUpload } from "imagekitio-react";
 import Image from "next/image";
 
 const dataFromFormValidator = z.object({
   prName: z.string(),
-  expires: z.coerce.date(),
-  opened: z.coerce.date(),
+  expires: z.coerce.date().or(z.string()),
+  opened: z.coerce.date().or(z.string()),
   expiresInDays: z.number().positive(),
-  categoryId: z.coerce.number().positive(),
+  categoryId: z.coerce.number().positive().or(z.string()),
   description: z.string(),
   important: z.boolean(),
 });
 
 type DataFromForm = z.infer<typeof dataFromFormValidator>;
 
-/**
- * Edit by ID
- *
- * - [ ] Get the product data from the API
- * - [ ] Initialise the field values with that data from the API
- * - [ ] User can change and submit which will PATCH the object
- */
 const EditProductById = () => {
   const router = useRouter();
 
@@ -34,23 +27,24 @@ const EditProductById = () => {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<ProductFromApi | null>(null);
 
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
+    getValues,
     formState: { errors },
   } = useForm<DataFromForm>({
     resolver: zodResolver(dataFromFormValidator),
   });
+  const formState = getValues();
+  console.log(formState);
 
-  /**
-   * On load we get all the categories
-   * Also get the product information from the API
-   */
   useEffect(() => {
     const fetchCategories = async () => {
+      console.log("FETCH CATEGORIES");
       try {
         const categoriesResponse = await fetch(
           "http://127.0.0.1:3001/categories"
@@ -58,6 +52,8 @@ const EditProductById = () => {
 
         const categoriesData = await categoriesResponse.json();
         setCategories(categoriesData);
+        setValue("categoryId", "1");
+        watch("categoryId");
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -80,44 +76,43 @@ const EditProductById = () => {
           );
           const data = await response.json();
           setProduct(data);
-
-          const expiresDate = new Date(data.expires);
-          const formattedExpiresDate = expiresDate.toISOString().split("T")[0];
-
-          const openedDate = new Date(data.opened);
-          const formattedOpenedDate = openedDate.toISOString().split("T")[0];
-
-          console.log(data.expires, data.opened);
-          // setProduct(data);
-          setValue("prName", data.prName);
-          setValue("expires", data.formattedExpiresDate);
-          setValue("opened", data.formattedOpenedDate);
-          setValue("expiresInDays", data.expiresInDays);
-          setValue("categoryId", data.categoryId, { shouldValidate: true });
-          setValue("description", data.description);
-          setValue("important", data.important);
         } catch (error) {
-          // Handle any errors that occurred during the fetch or processing
           console.error("Error fetching product data:", error);
         }
-
-        // Fetch product by id
-        // console.log(idFromUrl);
-
-        // const productFromApi = null; // For now its null, here do the actual api call
-
-        // We would have to update the React Hook Form with the values from productFromApi
-        // How can I update React Hook Form Values?
-        // setValue("prName", "Andrelon");
-
-        // Set the image in the state with setImgUrl
-        // setImgUrl(productFromApi.imgUrl)
       }
     };
 
-    fetchProductById();
     fetchCategories();
+    fetchProductById();
   }, [idFromUrl]);
+
+  useEffect(() => {
+    if (product && categories.length > 0) {
+      const expiresDate = new Date(product.expires);
+      const formattedExpiresDate = product.expires
+        ? expiresDate.toISOString().split("T")[0]
+        : "";
+
+      const openedDate = new Date(product.opened);
+      const formattedOpenedDate = product.opened
+        ? openedDate.toISOString().split("T")[0]
+        : "";
+
+      setValue("prName", product.prName);
+      setValue("expires", formattedExpiresDate);
+      setValue("opened", formattedOpenedDate);
+      setValue("expiresInDays", product.expiresInDays);
+      setValue("categoryId", product.categoryId, { shouldValidate: true });
+      setValue("description", product.description);
+      setValue("important", product.important);
+
+      // Set image url
+      setImgUrl(product.imgUrl);
+    }
+  }, [product, categories, setValue]);
+
+  const category = watch("categoryId");
+  console.log("Watched category", category);
 
   const publicKey = "public_E4sa9jl7zQRsEY6MhOvBe7OV2J4=";
   const urlEndpoint = "https://ik.imagekit.io/rhnxhgxw2";
@@ -189,8 +184,6 @@ const EditProductById = () => {
       console.error("An error occurred while logging in:", error);
     }
   };
-
-  // console.log(errors);
 
   return (
     <main>
@@ -269,23 +262,26 @@ const EditProductById = () => {
                 </button>
               </div>
             )}
-            <IKContext
-              publicKey={publicKey}
-              urlEndpoint={urlEndpoint}
-              authenticator={authenticator}
-            >
-              <IKUpload
-                fileName="product_"
-                onError={onError}
-                onSuccess={onSuccess}
-              />
-            </IKContext>
+
+            {!imgUrl && (
+              <IKContext
+                publicKey={publicKey}
+                urlEndpoint={urlEndpoint}
+                authenticator={authenticator}
+              >
+                <IKUpload
+                  fileName="product_"
+                  onError={onError}
+                  onSuccess={onSuccess}
+                />
+              </IKContext>
+            )}
 
             <label htmlFor="categoryId">Choose a category</label>
             <select
               id="categoryId"
               {...register("categoryId")}
-              defaultValue={"placeholder"}
+              // defaultValue={"placeholder"}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
               <option value={"placeholder"}>Select category</option>

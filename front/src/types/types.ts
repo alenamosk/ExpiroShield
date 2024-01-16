@@ -11,6 +11,10 @@ export interface Product {
   important: boolean;
 }
 
+export interface ProductFromApi extends Product {
+  categoryId: number;
+}
+
 export interface User {
   id: number;
   email: string;
