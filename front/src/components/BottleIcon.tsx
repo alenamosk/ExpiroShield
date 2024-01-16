@@ -4,11 +4,16 @@ import { SVGProps } from "react";
 interface BottleIconProps {
   fill: string;
   stroke: string;
+  className?: string;
 }
 
 const BottleIcon = (props: BottleIconProps) => (
   // <div className="bg-black rounded-full aspect-1 items-center">
-  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className={props.className}
+    viewBox="0 0 32 32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       style={{
         fill: props.fill,

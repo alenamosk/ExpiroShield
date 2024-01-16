@@ -11,6 +11,12 @@ import {
   ShieldExclamationIcon,
 } from "@heroicons/react/24/outline";
 import BottleIcon from "./BottleIcon";
+import {
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  Tooltip,
+} from "@/components/ui/tooltip";
 
 const Timeline = () => {
   const [products, setProducts] = useState<Product[] | []>([]);
@@ -53,6 +59,44 @@ const Timeline = () => {
               className="vertical-timeline-element"
               iconStyle={{ background: "#ffedd5" }}
               icon={
+                // product.important ? (
+                //   <TooltipProvider>
+                //     <Tooltip>
+                //       <TooltipTrigger>
+                //         <BottleIcon
+                //           className="w-6 h-6 pb-1"
+                //           fill="#f97316"
+                //           stroke="#7c2d12"
+                //         />
+                //       </TooltipTrigger>
+
+                //       <TooltipContent>
+                //         <p>You have marked this as an important product</p>
+                //       </TooltipContent>
+                //     </Tooltip>
+                //   </TooltipProvider>
+                // ) : (
+                //   <TooltipProvider>
+                //     <Tooltip>
+                //       <TooltipTrigger>
+                //         <BottleIcon
+                //           className="w-6 h-6 pb-1"
+                //           fill="none"
+                //           stroke="#7c2d12"
+                //         />
+                //       </TooltipTrigger>
+
+                //       <TooltipContent>
+                //         <p>You have marked this as not important product</p>
+                //       </TooltipContent>
+                //     </Tooltip>
+                //   </TooltipProvider>
+
+                // <BottleIcon
+                //   className="w-10 h-10 pb-1"
+                //   fill="#f97316"
+                //   stroke="#7c2d12"
+                // />
                 product.important ? (
                   <BottleIcon fill="#f97316" stroke="#7c2d12" />
                 ) : (

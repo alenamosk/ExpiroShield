@@ -141,7 +141,7 @@ const FormText = () => {
           <input
             id="prName"
             {...register("prName")}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
           {errors.prName && (
             <p className="error-msg">{errors.prName.message}</p>
@@ -156,7 +156,7 @@ const FormText = () => {
             max="2030-12-31"
             id="expires"
             {...register("expires")}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
           {errors.expires && (
             <p className="error-msg">{errors.expires.message}</p>
@@ -167,7 +167,7 @@ const FormText = () => {
             type="date"
             id="opened"
             {...register("opened")}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
           {errors.opened && (
             <p className="error-msg">{errors.opened.message}</p>
@@ -183,7 +183,7 @@ const FormText = () => {
             id="expiresInDays"
             {...register("expiresInDays", { valueAsNumber: true })}
             placeholder="3 months = 90 days, 6 months = 180 days"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
 
           {errors.expiresInDays && (
@@ -192,14 +192,15 @@ const FormText = () => {
 
           <label htmlFor="imgUrl">Upload a photo of the product</label>
           {imgUrl && (
-            <div>
+            <div className="flex items-start">
               <Image src={imgUrl} width={100} height={100} alt="product" />
               <button
+                className="rounded-md bg-orange-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                 onClick={() => {
                   setImgUrl(null);
                 }}
               >
-                Remove
+                X
               </button>
             </div>
           )}
@@ -220,9 +221,9 @@ const FormText = () => {
             id="categoryId"
             {...register("categoryId")}
             defaultValue={"placeholder"}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
-            <option value={"placeholder"}>Select category</option>
+            <option value={"placeholder"}>- Select category -</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.catName}
@@ -238,7 +239,7 @@ const FormText = () => {
             id="description"
             {...register("description")}
             placeholder="May include instructions, ingredients, storage conditions and everything that is important for you about the product"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></textarea>
           {errors.description && (
             <p className="error-msg">{errors.description.message}</p>
@@ -249,7 +250,7 @@ const FormText = () => {
             type="checkbox"
             id="important"
             {...register("important")}
-            className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600"
+            className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600 "
           ></input>
           {errors.important && (
             <p className="error-msg">{errors.important.message}</p>

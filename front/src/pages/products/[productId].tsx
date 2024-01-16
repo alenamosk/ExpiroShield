@@ -7,6 +7,12 @@ import BottleIcon from "@/components/BottleIcon";
 import EditIcon from "@/components/EditIcon";
 import Link from "next/link";
 import DeleteIcon from "@/components/DeleteIcon";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Product = () => {
   const router = useRouter();
@@ -87,10 +93,41 @@ const Product = () => {
                   className="icon-small"
                   style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
+                  {/* {product.important ? "IMPORTANT" : "NOT IMPORTANT"} */}
                   {product.important ? (
-                    <BottleIcon fill="#f97316" stroke="#7c2d12" />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <BottleIcon
+                            className="w-6 h-6 pb-1"
+                            fill="#f97316"
+                            stroke="#7c2d12"
+                          />
+                        </TooltipTrigger>
+
+                        <TooltipContent>
+                          <p>You have marked this as an important product</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   ) : (
-                    <BottleIcon fill="none" stroke="#7c2d12" />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <BottleIcon
+                            className="w-6 h-6 pb-1"
+                            fill="none"
+                            stroke="#7c2d12"
+                          />
+                        </TooltipTrigger>
+
+                        <TooltipContent>
+                          <p>You have marked this as not important product</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    // <BottleIcon fill="#f97316" stroke="#7c2d12" />
+                    // <BottleIcon fill="none" stroke="#7c2d12" />
                   )}
                 </span>
                 {product.prName}{" "}
