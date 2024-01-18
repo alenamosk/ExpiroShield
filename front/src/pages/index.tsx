@@ -66,7 +66,19 @@ export default function Home() {
         </div>
 
         <div className="col-start-1 col-span-4 sm:col-span-2 row-span-2 border border-black">
-          <h1>03 - 2 Features or benefits</h1>
+          <h1>Benefits</h1>
+          <p>
+            Reduced Waste: Helps users minimize food and product wastage by
+            ensuring timely consumption before items expire.
+          </p>
+          <p>
+            Convenience: Streamlines the process of tracking expiration dates,
+            saving users time and effort.
+          </p>
+          <p>
+            Health and Safety: Particularly valuable for tracking the expiration
+            of medications and ensuring the safety of users.
+          </p>
         </div>
 
         <div className="col-span-4 border border-black">
