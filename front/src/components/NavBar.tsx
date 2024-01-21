@@ -23,7 +23,7 @@ const NavBar = () => {
   if (token === "noToken") {
     return (
       <>
-        <div className="mx-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="mx-5 my-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex space-x-4 sm:mr-6">
               <a href="/">
@@ -67,7 +67,7 @@ const NavBar = () => {
   if (token === "hasToken") {
     return (
       <>
-        <div className="mx-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="mx-5 my-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex space-x-4 sm:mr-6">
               <a href="/">
