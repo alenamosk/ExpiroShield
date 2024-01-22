@@ -103,13 +103,13 @@ export default function Home() {
         </div>
 
         <div className="col-span-4 text-gray-500 ">
-          <div className="col-span-4 relative grid grid-cols-1 gap-8 mt-10 text-justify md:grid-cols-3 lg:max-w-none lg:grid-cols-5 ">
+          <div className="col-span-4 relative grid grid-cols-1 gap-8 mt-10 my-10 text-justify md:grid-cols-3 lg:max-w-none lg:grid-cols-5 ">
             {/* <h1>Usage</h1> */}
 
             <div className="">
-              <div className="flex justify-center h-10 p-1 shrink-0">
-                <LoginIcon fill="#7c2d12" stroke="none" />
-                <p className="p-1 ">Create an account </p>
+              <div className="flex justify-start h-9 p-1 my-3 shrink-0 sm:justify-center">
+                <LoginIcon fill="#0f766d" stroke="none" />
+                <p className="p-1 font-bold">Create an account </p>
               </div>
 
               <p className="text-sm">
@@ -119,23 +119,23 @@ export default function Home() {
             </div>
 
             <div className="">
-              <div className="flex justify-center h-10 p-1 shrink-0">
-                <ShieldIcon fill="#7c2d12" stroke="none" />
-                <p className="p-1">Add product</p>
+              <div className="flex justify-start h-10 p-1 my-3 shrink-0 sm:justify-center">
+                <ShieldIcon fill="#0f766d" stroke="none" />
+                <p className="p-1 font-bold">Add product</p>
               </div>
 
               <p className="text-sm">
                 Input details about the product you would like to track. 3 dates
                 contribute to the computation of the final expiration date: the
                 factory expiration date, the date of product opening, and the
-                product's shelf life post-opening ⓘ.
+                period after opening ⓘ.
               </p>
             </div>
 
             <div className="">
-              <div className="flex justify-center h-10 p-1 shrink-0">
-                <ProductsIcon fill="#7c2d12" stroke="none" />
-                <p className="p-1">Explore the timeline</p>
+              <div className="flex justify-start h-10 p-1 my-3 shrink-0 sm:justify-center">
+                <ProductsIcon fill="#0f766d" stroke="none" />
+                <p className="p-1 font-bold">Explore the timeline</p>
               </div>
 
               <p className="text-sm">
@@ -148,9 +148,9 @@ export default function Home() {
             </div>
 
             <div className="">
-              <div className="flex justify-center h-10 p-1 shrink-0">
-                <EditIcon fill="none" stroke="#7c2d12" />
-                <p className="p-1">Update product</p>
+              <div className="flex justify-start h-10 p-1 my-3 shrink-0 sm:justify-center">
+                <EditIcon fill="none" stroke="#0f766d" />
+                <p className="p-1 font-bold">Update product</p>
               </div>
 
               <p className="text-sm">
@@ -161,9 +161,9 @@ export default function Home() {
             </div>
 
             <div className="">
-              <div className="flex justify-center h-10 p-1 shrink-0">
-                <DeleteIcon fill="none" stroke="#7c2d12" />
-                <p className="p-1">Remove products</p>
+              <div className="flex justify-start h-10 p-1 my-3 shrink-0 sm:justify-center">
+                <DeleteIcon fill="none" stroke="#0f766d" />
+                <p className="p-1 font-bold">Remove products</p>
               </div>
 
               <p className="text-sm">
@@ -173,10 +173,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="col-span-4 border border-black">
-            <p>05 - 4</p>
+          <div className="flex justify-center col-span-4 ">
             <Link href="/register">
-              <button className="rounded-md bg-orange-900 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
+              <button className="rounded-md bg-orange-900 px-28 py-2 my-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                 Get started
               </button>
             </Link>
