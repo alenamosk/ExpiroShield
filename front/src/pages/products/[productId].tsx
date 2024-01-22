@@ -178,7 +178,7 @@ const Product = () => {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>
-                        Are you absolutely sure you want to delete the product??
+                        Are you absolutely sure you want to delete the product?
                       </DialogTitle>
                       <DialogDescription>
                         This action cannot be undone. This will permanently
@@ -188,10 +188,11 @@ const Product = () => {
 
                     <DialogFooter>
                       <Button
+                        className="bg-orange-600  text-white  hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                         onClick={(e: any) => handleDelete(product?.id)}
                         type="submit"
                       >
-                        Confirm
+                        Delete
                       </Button>
 
                       <DialogClose asChild>
