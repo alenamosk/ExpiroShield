@@ -13,6 +13,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const Product = () => {
   const router = useRouter();
@@ -147,17 +158,50 @@ const Product = () => {
                     <DeleteIcon fill="none" stroke="#7c2d12" />
                   </Link>
                 </span> */}
-                <span
-                  className="icon-small"
-                  style={{ display: "inline-block", verticalAlign: "middle" }}
-                >
-                  <button
-                    onClick={(e: any) => handleDelete(product?.id)}
+                <Dialog>
+                  <span
                     className="icon-small"
+                    style={{
+                      display: "inline-block",
+                      verticalAlign: "middle",
+                    }}
                   >
-                    <DeleteIcon fill="none" stroke="#7c2d12" />
-                  </button>
-                </span>
+                    <DialogTrigger asChild>
+                      <button
+                        // onClick={(e: any) => handleDelete(product?.id)}
+                        className="icon-small"
+                      >
+                        <DeleteIcon fill="none" stroke="#7c2d12" />
+                      </button>
+                    </DialogTrigger>
+                  </span>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        Are you absolutely sure you want to delete the product??
+                      </DialogTitle>
+                      <DialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete your product.
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <DialogFooter>
+                      <Button
+                        onClick={(e: any) => handleDelete(product?.id)}
+                        type="submit"
+                      >
+                        Confirm
+                      </Button>
+
+                      <DialogClose asChild>
+                        <Button type="button" variant="secondary">
+                          Close
+                        </Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </h1>
               <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
                 Expires:{" "}
