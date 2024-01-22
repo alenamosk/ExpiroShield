@@ -7,9 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import MagnifyingGlassIcon from "@/components/MagnifyingGlass";
-import TagIcon from "@/components/TagIcon";
-import ComputerIcon from "@/components/ComputerIcon";
 import ShieldIcon from "@/components/ShieldIcon";
 import ProductsIcon from "@/components/ProductsIcon";
 import EditIcon from "@/components/EditIcon";
@@ -105,49 +102,85 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="col-span-4 border border-black">
-          <h1>Usage</h1>
-          <p>
-            <div className="flex h-7">
-              <LoginIcon fill="#7c2d12" stroke="none" />
-            </div>
-            Create an account or login
-          </p>
-          <p>
-            <div className="flex h-7">
-              <ShieldIcon fill="#7c2d12" stroke="none" />
-            </div>
-            Add product: input details about the product you want to track,
-            including the name, factory expiration date, the day you opened the
-            product, product expiration date after opening, category,
-            discription and importance
-          </p>
-          <p>
-            <div className="flex h-7 ">
-              <ProductsIcon fill="#7c2d12" stroke="none" />
-            </div>
-            Explore the timeline
-          </p>
-          <p>
-            <div className="flex h-7 ">
-              <EditIcon fill="none" stroke="#7c2d12" />
-            </div>
-            Update and{" "}
-            <div className="flex h-7 ">
-              <DeleteIcon fill="none" stroke="#7c2d12" />
-            </div>
-            remove products
-          </p>
-          <p></p>
-        </div>
+        <div className="col-span-4 text-gray-500 ">
+          <div className="col-span-4 relative grid grid-cols-1 gap-8 mt-10 text-justify md:grid-cols-3 lg:max-w-none lg:grid-cols-5 ">
+            {/* <h1>Usage</h1> */}
 
-        <div className="col-span-4 border border-black">
-          <p>05 - 4</p>
-          <Link href="/register">
-            <button className="rounded-md bg-orange-900 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
-              Get started
-            </button>
-          </Link>
+            <div className="">
+              <div className="flex justify-center h-10 p-1 shrink-0">
+                <LoginIcon fill="#7c2d12" stroke="none" />
+                <p className="p-1 ">Create an account </p>
+              </div>
+
+              <p className="text-sm">
+                Do it in three simple clicks. Input your email, come up with a
+                password, and press "confirm."
+              </p>
+            </div>
+
+            <div className="">
+              <div className="flex justify-center h-10 p-1 shrink-0">
+                <ShieldIcon fill="#7c2d12" stroke="none" />
+                <p className="p-1">Add product</p>
+              </div>
+
+              <p className="text-sm">
+                Input details about the product you would like to track. 3 dates
+                contribute to the computation of the final expiration date: the
+                factory expiration date, the date of product opening, and the
+                product's shelf life post-opening ⓘ.
+              </p>
+            </div>
+
+            <div className="">
+              <div className="flex justify-center h-10 p-1 shrink-0">
+                <ProductsIcon fill="#7c2d12" stroke="none" />
+                <p className="p-1">Explore the timeline</p>
+              </div>
+
+              <p className="text-sm">
+                {" "}
+                Next to each product, you'll find an icon: a vibrant orange
+                color signifies that you've designated the product as important,
+                while an unfilled icon indicates that the product is considered
+                less significant.
+              </p>
+            </div>
+
+            <div className="">
+              <div className="flex justify-center h-10 p-1 shrink-0">
+                <EditIcon fill="none" stroke="#7c2d12" />
+                <p className="p-1">Update product</p>
+              </div>
+
+              <p className="text-sm">
+                If you've made an error while inputting product details or added
+                an item you intend to open at a later time, the editing function
+                is available for you.
+              </p>
+            </div>
+
+            <div className="">
+              <div className="flex justify-center h-10 p-1 shrink-0">
+                <DeleteIcon fill="none" stroke="#7c2d12" />
+                <p className="p-1">Remove products</p>
+              </div>
+
+              <p className="text-sm">
+                If you no longer wish to keep a particular product, you can
+                easily remove it
+              </p>
+            </div>
+          </div>
+
+          <div className="col-span-4 border border-black">
+            <p>05 - 4</p>
+            <Link href="/register">
+              <button className="rounded-md bg-orange-900 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
+                Get started
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </main>
