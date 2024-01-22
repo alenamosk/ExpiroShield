@@ -9,6 +9,13 @@ import { IKContext, IKImage, IKUpload } from "imagekitio-react";
 import Product from "./products/[productId]";
 import { error } from "console";
 import Image from "next/image";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import BottleIcon from "@/components/BottleIcon";
 
 const dataFromFormValidator = z.object({
   prName: z.string(),
@@ -175,6 +182,26 @@ const FormText = () => {
 
           <label htmlFor="expiresInDays">
             Product expiration date after opening (in days)
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <span>ⓘ</span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="flex items-center">
+                    <span>
+                      Look for a similar icon sign on product packaging{" "}
+                      <img
+                        className="h-10 w-auto sm:h-10 mx-4"
+                        src="/expOnBottle.jpeg"
+                        alt="logo"
+                      />
+                      12 month = 365 days{" "}
+                    </span>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </label>
           <input
             type="number"
@@ -245,7 +272,37 @@ const FormText = () => {
             <p className="error-msg">{errors.description.message}</p>
           )}
 
-          <label htmlFor="important">Is the product important to track?</label>
+          <label htmlFor="important">
+            Is the product important to track?
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <span>ⓘ</span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="">
+                    <span className="flex items-center">
+                      <BottleIcon
+                        className="w-6 h-6 pb-1"
+                        fill="#f97316"
+                        stroke="#7c2d12"
+                      />{" "}
+                      - indication for an important product
+                    </span>
+                    <span className="flex items-center">
+                      <BottleIcon
+                        className="w-6 h-6 pb-1"
+                        fill="none"
+                        stroke="#7c2d12"
+                      />{" "}
+                      - indication for a product that is considered less
+                      important
+                    </span>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </label>
           <input
             type="checkbox"
             id="important"

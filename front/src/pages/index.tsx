@@ -106,7 +106,7 @@ export default function Home() {
           <div className="col-span-4 relative grid grid-cols-1 gap-8 mt-10 my-10 text-justify md:grid-cols-3 lg:max-w-none lg:grid-cols-5 ">
             {/* <h1>Usage</h1> */}
 
-            <div className="">
+            {/* <div className="">
               <div className="flex justify-start h-9 p-1 my-3 shrink-0 sm:justify-center">
                 <LoginIcon fill="#0f766d" stroke="none" />
                 <p className="p-1 font-bold">Create an account </p>
@@ -170,12 +170,12 @@ export default function Home() {
                 If you no longer wish to keep a particular product, you can
                 easily remove it
               </p>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex justify-center col-span-4 ">
             <Link href="/register">
-              <button className="rounded-md bg-orange-900 px-28 py-2 my-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
+              <button className="rounded-md bg-orange-900 px-10 sm:px-40 py-2 my-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                 Get started
               </button>
             </Link>

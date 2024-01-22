@@ -133,7 +133,7 @@ const Product = () => {
                         </TooltipTrigger>
 
                         <TooltipContent>
-                          <p>You have marked this as not important product</p>
+                          <p>You have marked this as less important product</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
