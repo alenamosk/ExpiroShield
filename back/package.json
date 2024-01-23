@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && node build/server.js",
+    "start": "node build/server.js",
     "db-clear": "prisma db push --force-reset",
     "db-seed": "tsx prisma/seed.ts",
     "db-reset": "npm run db-clear && npm run db-seed",

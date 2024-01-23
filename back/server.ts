@@ -12,7 +12,7 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const prisma = new PrismaClient();
 
