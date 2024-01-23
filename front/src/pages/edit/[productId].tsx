@@ -189,7 +189,7 @@ const EditProductById = () => {
     <main>
       <NavBar />
 
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl ">
         {/* <div className="flex"> */}
         <form
           className="flex flex-col p-8 space-y-2"
@@ -329,11 +329,11 @@ const EditProductById = () => {
         <div>
           {/* <Image src="/cream.JPG" width={100} height={200} alt="cream" /> */}
           {/* "h-48 w-full object-cover md:h-full md:w-100" */}
-          <img
+          {/* <img
             className="h-full w-full object-cover md:h-full "
             src="cream.JPG"
             alt="Logo"
-          />
+          /> */}
         </div>
       </div>
       {/* </div> */}
