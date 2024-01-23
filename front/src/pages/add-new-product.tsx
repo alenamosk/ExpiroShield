@@ -65,7 +65,7 @@ const FormText = () => {
   const authenticator = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/authenticationEndpoint"
+        `${process.env.NEXT_PUBLIC_API_URL}/authenticationEndpoint`
       );
 
       if (!response.ok) {
@@ -100,23 +100,26 @@ const FormText = () => {
     try {
       const tokenFromLS = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:3001/add-new-product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + tokenFromLS,
-        },
-        body: JSON.stringify({
-          prName: data.prName,
-          expires: data.expires,
-          opened: data.opened,
-          expiresInDays: data.expiresInDays,
-          imgUrl: imgUrl,
-          categoryId: data.categoryId,
-          description: data.description,
-          important: data.important,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/add-new-product`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + tokenFromLS,
+          },
+          body: JSON.stringify({
+            prName: data.prName,
+            expires: data.expires,
+            opened: data.opened,
+            expiresInDays: data.expiresInDays,
+            imgUrl: imgUrl,
+            categoryId: data.categoryId,
+            description: data.description,
+            important: data.important,
+          }),
+        }
+      );
 
       if (response.ok) {
         const jsonResponse = await response.json();

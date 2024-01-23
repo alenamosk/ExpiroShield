@@ -25,11 +25,14 @@ const Timeline = () => {
     const fetchData = async () => {
       try {
         const tokenFromLS = localStorage.getItem("token");
-        const response = await fetch("http://localhost:3001/my-products", {
-          headers: {
-            Authorization: "Bearer " + tokenFromLS,
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/my-products`,
+          {
+            headers: {
+              Authorization: "Bearer " + tokenFromLS,
+            },
+          }
+        );
         const data = await response.json();
         setProducts(data);
       } catch (error) {

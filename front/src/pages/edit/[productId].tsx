@@ -47,7 +47,7 @@ const EditProductById = () => {
       console.log("FETCH CATEGORIES");
       try {
         const categoriesResponse = await fetch(
-          "http://127.0.0.1:3001/categories"
+          `${process.env.NEXT_PUBLIC_API_URL}/categories`
         );
 
         const categoriesData = await categoriesResponse.json();
@@ -67,7 +67,7 @@ const EditProductById = () => {
         try {
           const tokenFromLS = localStorage.getItem("token");
           const response = await fetch(
-            `http://localhost:3001/products/${idFromUrl}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/products/${idFromUrl}`,
             {
               headers: {
                 Authorization: "Bearer " + tokenFromLS,
@@ -119,7 +119,7 @@ const EditProductById = () => {
   const authenticator = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/authenticationEndpoint"
+        `${process.env.NEXT_PUBLIC_API_URL}/authenticationEndpoint`
       );
 
       if (!response.ok) {
@@ -154,23 +154,26 @@ const EditProductById = () => {
     try {
       const tokenFromLS = localStorage.getItem("token");
 
-      const response = await fetch(`http://localhost:3001/edit/${idFromUrl}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + tokenFromLS,
-        },
-        body: JSON.stringify({
-          prName: data.prName,
-          expires: data.expires,
-          opened: data.opened,
-          expiresInDays: data.expiresInDays,
-          imgUrl: imgUrl,
-          categoryId: data.categoryId,
-          description: data.description,
-          important: data.important,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/edit/${idFromUrl}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + tokenFromLS,
+          },
+          body: JSON.stringify({
+            prName: data.prName,
+            expires: data.expires,
+            opened: data.opened,
+            expiresInDays: data.expiresInDays,
+            imgUrl: imgUrl,
+            categoryId: data.categoryId,
+            description: data.description,
+            important: data.important,
+          }),
+        }
+      );
 
       if (response.ok) {
         const jsonResponse = await response.json();

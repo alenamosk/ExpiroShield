@@ -41,7 +41,7 @@ const Product = () => {
       if (localStorage.getItem("token")) {
         const tokenFromLS = localStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:3001/products/${idFromUrl}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/products/${idFromUrl}`,
           {
             headers: {
               Authorization: "Bearer " + tokenFromLS,
@@ -61,7 +61,7 @@ const Product = () => {
       const tokenFromLS = localStorage.getItem("token");
       try {
         const response = await fetch(
-          `http://localhost:3001/products/delete/${idFromUrl}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/products/delete/${idFromUrl}`,
           {
             headers: {
               Authorization: "Bearer " + tokenFromLS,
