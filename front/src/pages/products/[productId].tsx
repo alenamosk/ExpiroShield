@@ -54,7 +54,10 @@ const Product = () => {
       }
     };
     fetchData();
-  }, [idFromUrl]);
+    if ("updated" in router.query && router.query.updated) {
+      alert("Product was updated!");
+    }
+  }, [idFromUrl, router]);
 
   const handleDelete = async (idFromUrl: number) => {
     if (localStorage.getItem("token")) {

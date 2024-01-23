@@ -11,6 +11,7 @@ import {
   ShieldExclamationIcon,
 } from "@heroicons/react/24/outline";
 import BottleIcon from "./BottleIcon";
+import { isBefore } from "date-fns";
 import {
   TooltipContent,
   TooltipProvider,
@@ -50,68 +51,77 @@ const Timeline = () => {
 
       {products.length > 0 ? (
         <VerticalTimeline className="vertical-timeline-custom-line">
-          {products.map((product) => (
-            <VerticalTimelineElement
-              key={product.id}
-              date={new Date(product.expires).toLocaleString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-              dateClassName="date"
-              className="vertical-timeline-element"
-              iconStyle={{ background: "#ffedd5" }}
-              icon={
-                // product.important ? (
-                //   <TooltipProvider>
-                //     <Tooltip>
-                //       <TooltipTrigger>
-                //         <BottleIcon
-                //           className="w-6 h-6 pb-1"
-                //           fill="#f97316"
-                //           stroke="#7c2d12"
-                //         />
-                //       </TooltipTrigger>
+          {/* Below are 'archived' */}
+          {products
+            .filter((product) => isBefore(product.expires, new Date()))
+            .map((product) => {
+              return <p key={product.id}>{product.prName}</p>;
+            })}
+          {/* Below should be not archived */}
+          {products
+            .filter((product) => !isBefore(product.expires, new Date()))
+            .map((product) => (
+              <VerticalTimelineElement
+                key={product.id}
+                date={new Date(product.expires).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+                dateClassName="date"
+                className="vertical-timeline-element"
+                iconStyle={{ background: "#ffedd5" }}
+                icon={
+                  // product.important ? (
+                  //   <TooltipProvider>
+                  //     <Tooltip>
+                  //       <TooltipTrigger>
+                  //         <BottleIcon
+                  //           className="w-6 h-6 pb-1"
+                  //           fill="#f97316"
+                  //           stroke="#7c2d12"
+                  //         />
+                  //       </TooltipTrigger>
 
-                //       <TooltipContent>
-                //         <p>You have marked this as an important product</p>
-                //       </TooltipContent>
-                //     </Tooltip>
-                //   </TooltipProvider>
-                // ) : (
-                //   <TooltipProvider>
-                //     <Tooltip>
-                //       <TooltipTrigger>
-                //         <BottleIcon
-                //           className="w-6 h-6 pb-1"
-                //           fill="none"
-                //           stroke="#7c2d12"
-                //         />
-                //       </TooltipTrigger>
+                  //       <TooltipContent>
+                  //         <p>You have marked this as an important product</p>
+                  //       </TooltipContent>
+                  //     </Tooltip>
+                  //   </TooltipProvider>
+                  // ) : (
+                  //   <TooltipProvider>
+                  //     <Tooltip>
+                  //       <TooltipTrigger>
+                  //         <BottleIcon
+                  //           className="w-6 h-6 pb-1"
+                  //           fill="none"
+                  //           stroke="#7c2d12"
+                  //         />
+                  //       </TooltipTrigger>
 
-                //       <TooltipContent>
-                //         <p>You have marked this as not important product</p>
-                //       </TooltipContent>
-                //     </Tooltip>
-                //   </TooltipProvider>
+                  //       <TooltipContent>
+                  //         <p>You have marked this as not important product</p>
+                  //       </TooltipContent>
+                  //     </Tooltip>
+                  //   </TooltipProvider>
 
-                // <BottleIcon
-                //   className="w-10 h-10 pb-1"
-                //   fill="#f97316"
-                //   stroke="#7c2d12"
-                // />
-                product.important ? (
-                  <BottleIcon fill="#f97316" stroke="#7c2d12" />
-                ) : (
-                  <BottleIcon fill="none" stroke="#7c2d12" />
-                )
-              }
-            >
-              <h3 className="vertical-timeline-element-title">
-                <Link href={`products/${product.id}`}>{product.prName}</Link>
-              </h3>
-            </VerticalTimelineElement>
-          ))}
+                  // <BottleIcon
+                  //   className="w-10 h-10 pb-1"
+                  //   fill="#f97316"
+                  //   stroke="#7c2d12"
+                  // />
+                  product.important ? (
+                    <BottleIcon fill="#f97316" stroke="#7c2d12" />
+                  ) : (
+                    <BottleIcon fill="none" stroke="#7c2d12" />
+                  )
+                }
+              >
+                <h3 className="vertical-timeline-element-title">
+                  <Link href={`products/${product.id}`}>{product.prName}</Link>
+                </h3>
+              </VerticalTimelineElement>
+            ))}
         </VerticalTimeline>
       ) : (
         <div className="text-center mt-6 mx-14 text-lg  text-gray-500">

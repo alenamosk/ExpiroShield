@@ -155,7 +155,7 @@ const EditProductById = () => {
       const tokenFromLS = localStorage.getItem("token");
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/edit/${idFromUrl}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/products/edit/${idFromUrl}`,
         {
           method: "PATCH",
           headers: {
@@ -177,11 +177,11 @@ const EditProductById = () => {
 
       if (response.ok) {
         const jsonResponse = await response.json();
-        console.log("Product added successfully:", jsonResponse);
-        const id = jsonResponse.newProduct.id;
-        router.push(`/products/${id}`);
+        console.log("Product edited successfully:", jsonResponse);
+        const id = jsonResponse.updatedProduct.id;
+        router.push(`/products/${id}?updated=true`);
       } else {
-        console.log("Product addition failed:", response.status);
+        console.log("Product edition failed:", response.status);
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);
