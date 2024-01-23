@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "catName": "Skin, body and hair care"
+    },
+    {
+        "id": 2,
+        "catName": "Cosmetics"
+    },
+    {
+        "id": 3,
+        "catName": "Medicines"
+    },
+    {
+        "id": 4,
+        "catName": "Pet care products"
+    },
+    {
+        "id": 5,
+        "catName": "Other"
+    }
+]
