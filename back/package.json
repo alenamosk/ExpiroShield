@@ -9,7 +9,7 @@
     "db-clear": "prisma db push --force-reset",
     "db-seed": "tsx prisma/seed.ts",
     "db-reset": "npm run db-clear && npm run db-seed",
-    "dev": "npx watch server.ts",
+    "dev": "tsx watch server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
