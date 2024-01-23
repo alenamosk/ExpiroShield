@@ -84,7 +84,7 @@ const EditProductById = () => {
 
     fetchCategories();
     fetchProductById();
-  }, [idFromUrl]);
+  }, [idFromUrl, setValue, watch]);
 
   useEffect(() => {
     if (product && categories.length > 0) {

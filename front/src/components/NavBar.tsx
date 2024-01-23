@@ -26,35 +26,35 @@ const NavBar = () => {
         <div className="mx-5 my-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex space-x-4 sm:mr-6">
-              <a href="/">
+              <Link href="/">
                 <img
                   className="h-10 w-auto sm:h-10 mx-4"
                   src="/logo-brown.png"
                   alt="logo"
                 />
-              </a>
+              </Link>
             </div>
 
             <div className="flex ">
               <div className="sm:ml-6 sm:block pxl-3">
                 <div className="flex space-x-4">
-                  <a
+                  <Link
                     href="/login"
                     className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Login
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               <div className="sm:ml-6 sm:block px-2">
                 <div className="flex space-x-4">
-                  <a
+                  <Link
                     href="/register"
                     className="text-orange-600 hover:bg-orange-900 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Register
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -70,19 +70,19 @@ const NavBar = () => {
         <div className="mx-5 my-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex space-x-4 sm:mr-6">
-              <a href="/">
+              <Link href="/">
                 <img
                   className="h-10 w-auto sm:h-10 mx-4"
                   src="/logo-brown.png"
                   alt="logo"
                 />
-              </a>
+              </Link>
             </div>
 
             <div className="flex ">
               <div className="sm:ml-6 sm:block pxl-3">
                 <div className="flex space-x-4">
-                  <a
+                  <Link
                     href="/add-new-product"
                     className="text-orange-900 hover:bg-orange-100 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
@@ -90,13 +90,13 @@ const NavBar = () => {
                       <ShieldIcon fill="#7c2d12" stroke="none" />
                     </div>
                     <span className="hidden sm:inline">Add new product</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               <div className="sm:ml-6 sm:block px-2">
                 <div className="flex space-x-4">
-                  <a
+                  <Link
                     href="/my-products"
                     className="text-orange-900 hover:bg-orange-100 sm:hover:bg-teal-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
@@ -104,7 +104,7 @@ const NavBar = () => {
                       <ProductsIcon fill="#7c2d12" stroke="none" />
                     </div>
                     <span className="hidden sm:inline">My products page</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
 

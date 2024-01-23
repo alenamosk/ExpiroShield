@@ -112,8 +112,10 @@ const Timeline = () => {
         </VerticalTimeline>
       ) : (
         <div className="text-center mt-6 mx-14 text-lg  text-gray-500">
-          <p>You don't have any products to track yet.</p>
-          <p>Please click "Add new product" to get started.</p>
+          <p>You don{"'"}t have any products to track yet.</p>
+          <p>
+            Please click {'"'}Add new product{'"'} to get started.
+          </p>
         </div>
       )}
     </>
