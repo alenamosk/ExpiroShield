@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
 import ProductsIcon from "./ProductsIcon";
 import ShieldIcon from "./ShieldIcon";
 
 const NavBar = () => {
+  const router = useRouter();
+
   const [token, setToken] = useState<null | string>(null);
   useEffect(() => {
     const tokenFromLS = localStorage.getItem("token");
@@ -17,7 +21,7 @@ const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    location.reload();
+    router.push("/");
   };
 
   if (token === "noToken") {

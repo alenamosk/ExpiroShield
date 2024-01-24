@@ -43,20 +43,84 @@ const Timeline = () => {
     fetchData();
   }, []);
 
+  // const archivedItems = products
+  //   .filter((product) => isBefore(product.expires, new Date()))
+  //   .map((product) => (
+  //     <div key={product.id}>
+  //       {product.important ? (
+  //         <BottleIcon className="h-10" fill="#f97316" stroke="#7c2d12" />
+  //       ) : (
+  //         <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
+  //       )}
+  //       <Link href={`products/${product.id}`}>{product.prName}</Link>
+  //       {new Date(product.expires).toLocaleString("en-US", {
+  //         year: "numeric",
+  //         month: "short",
+  //         day: "numeric",
+  //       })}
+  //     </div>
+  //   ));
+
   return (
     <>
       <div>
         <h1 className="title">Your products</h1>
       </div>
 
+      <div>
+        {products.length > 0 ? (
+          products
+            .filter((product) => isBefore(product.expires, new Date()))
+            .map((product) => (
+              <div key={product.id}>
+                {product.important ? (
+                  <BottleIcon
+                    className="h-10"
+                    fill="#f97316"
+                    stroke="#7c2d12"
+                  />
+                ) : (
+                  <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
+                )}
+                <Link href={`products/${product.id}`}>{product.prName}</Link>
+                {new Date(product.expires).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </div>
+            ))
+        ) : (
+          <p>No archived products</p>
+        )}
+      </div>
+
       {products.length > 0 ? (
         <VerticalTimeline className="vertical-timeline-custom-line">
           {/* Below are 'archived' */}
-          {products
+          {/* {products
             .filter((product) => isBefore(product.expires, new Date()))
             .map((product) => {
-              return <p key={product.id}>{product.prName}</p>;
-            })}
+              return (
+                <div key={product.id}>
+                  {product.important ? (
+                    <BottleIcon
+                      className="h-10"
+                      fill="#f97316"
+                      stroke="#7c2d12"
+                    />
+                  ) : (
+                    <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
+                  )}
+                  <Link href={`products/${product.id}`}>{product.prName}</Link>
+                  {new Date(product.expires).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </div>
+              );
+            })} */}
           {/* Below should be not archived */}
           {products
             .filter((product) => !isBefore(product.expires, new Date()))
