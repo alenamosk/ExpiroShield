@@ -1,23 +1,19 @@
+import "react-vertical-timeline-component/style.min.css";
+import BottleIcon from "./BottleIcon";
+import Link from "next/link";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Product } from "@/types/types";
+import { differenceInDays, isBefore } from "date-fns";
+import { useEffect, useState } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
-import { Product } from "@/types/types";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import {
-  ShieldCheckIcon,
-  ShieldExclamationIcon,
-} from "@heroicons/react/24/outline";
-import BottleIcon from "./BottleIcon";
-import { differenceInDays, isBefore } from "date-fns";
-import {
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-  Tooltip,
-} from "@/components/ui/tooltip";
 
 const Timeline = () => {
   const [products, setProducts] = useState<Product[] | []>([]);
@@ -43,24 +39,6 @@ const Timeline = () => {
     fetchData();
   }, []);
 
-  // const archivedItems = products
-  //   .filter((product) => isBefore(product.expires, new Date()))
-  //   .map((product) => (
-  //     <div key={product.id}>
-  //       {product.important ? (
-  //         <BottleIcon className="h-10" fill="#f97316" stroke="#7c2d12" />
-  //       ) : (
-  //         <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
-  //       )}
-  //       <Link href={`products/${product.id}`}>{product.prName}</Link>
-  //       {new Date(product.expires).toLocaleString("en-US", {
-  //         year: "numeric",
-  //         month: "short",
-  //         day: "numeric",
-  //       })}
-  //     </div>
-  //   ));
-
   return (
     <>
       <div>
@@ -68,68 +46,69 @@ const Timeline = () => {
       </div>
 
       <div>
-        <h1>About to expire</h1>
-        {products.length > 0 ? (
-          products
-            .filter((product) => {
-              const dayDifference = differenceInDays(
-                product.expires,
-                new Date()
-              );
-              return dayDifference < 7;
-            })
-            .filter((product) => !isBefore(product.expires, new Date()))
-            .map((product) => (
-              <div key={product.id}>
-                {product.important ? (
-                  <BottleIcon
-                    className="h-10"
-                    fill="#f97316"
-                    stroke="#7c2d12"
-                  />
-                ) : (
-                  <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
-                )}
-                <Link href={`products/${product.id}`}>{product.prName}</Link>
-                {new Date(product.expires).toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </div>
-            ))
-        ) : (
-          <p>No products that abot to expire</p>
-        )}
+        <Accordion
+          type="single"
+          collapsible
+          className="max-w-md mx-10  sm:mx-auto mt-7 mb-10 md:max-w-2xl border border-teal-600 px-3 rounded-xl "
+        >
+          <AccordionItem value="item-1" className="">
+            <AccordionTrigger className="text-orange-600">
+              About to expire
+            </AccordionTrigger>
+            <AccordionContent className="divide-y">
+              {products.length > 0 ? (
+                products
+                  .filter((product) => {
+                    const dayDifference = differenceInDays(
+                      product.expires,
+                      new Date()
+                    );
+                    return dayDifference < 7;
+                  })
+                  .filter((product) => !isBefore(product.expires, new Date()))
+                  .map((product) => (
+                    <div
+                      className="flex text-xs md:text-base "
+                      key={product.id}
+                    >
+                      {product.important ? (
+                        <BottleIcon
+                          className="h-6"
+                          fill="#f97316"
+                          stroke="#7c2d12"
+                        />
+                      ) : (
+                        <BottleIcon
+                          className="h-6"
+                          fill="none"
+                          stroke="#7c2d12"
+                        />
+                      )}
+                      <p className="text-orange-400 px-2">
+                        {new Date(product.expires).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <Link
+                        className="text-orange-900 pr-2"
+                        href={`products/${product.id}`}
+                      >
+                        {product.prName}
+                      </Link>
+                    </div>
+                  ))
+              ) : (
+                <p>No products that abot to expire</p>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
 
       {products.length > 0 ? (
         <VerticalTimeline className="vertical-timeline-custom-line">
-          {/* Below are 'archived' */}
-          {/* {products
-            .filter((product) => isBefore(product.expires, new Date()))
-            .map((product) => {
-              return (
-                <div key={product.id}>
-                  {product.important ? (
-                    <BottleIcon
-                      className="h-10"
-                      fill="#f97316"
-                      stroke="#7c2d12"
-                    />
-                  ) : (
-                    <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
-                  )}
-                  <Link href={`products/${product.id}`}>{product.prName}</Link>
-                  {new Date(product.expires).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </div>
-              );
-            })} */}
-          {/* Below should be not archived */}
           {products
             .filter((product) => !isBefore(product.expires, new Date()))
             .map((product) => (
@@ -144,44 +123,6 @@ const Timeline = () => {
                 className="vertical-timeline-element"
                 iconStyle={{ background: "#ffedd5" }}
                 icon={
-                  // product.important ? (
-                  //   <TooltipProvider>
-                  //     <Tooltip>
-                  //       <TooltipTrigger>
-                  //         <BottleIcon
-                  //           className="w-6 h-6 pb-1"
-                  //           fill="#f97316"
-                  //           stroke="#7c2d12"
-                  //         />
-                  //       </TooltipTrigger>
-
-                  //       <TooltipContent>
-                  //         <p>You have marked this as an important product</p>
-                  //       </TooltipContent>
-                  //     </Tooltip>
-                  //   </TooltipProvider>
-                  // ) : (
-                  //   <TooltipProvider>
-                  //     <Tooltip>
-                  //       <TooltipTrigger>
-                  //         <BottleIcon
-                  //           className="w-6 h-6 pb-1"
-                  //           fill="none"
-                  //           stroke="#7c2d12"
-                  //         />
-                  //       </TooltipTrigger>
-
-                  //       <TooltipContent>
-                  //         <p>You have marked this as not important product</p>
-                  //       </TooltipContent>
-                  //     </Tooltip>
-                  //   </TooltipProvider>
-
-                  // <BottleIcon
-                  //   className="w-10 h-10 pb-1"
-                  //   fill="#f97316"
-                  //   stroke="#7c2d12"
-                  // />
                   product.important ? (
                     <BottleIcon fill="#f97316" stroke="#7c2d12" />
                   ) : (
@@ -205,32 +146,58 @@ const Timeline = () => {
       )}
 
       <div>
-        <h1>Archive</h1>
-        {products.length > 0 ? (
-          products
-            .filter((product) => isBefore(product.expires, new Date()))
-            .map((product) => (
-              <div key={product.id}>
-                {product.important ? (
-                  <BottleIcon
-                    className="h-10"
-                    fill="#f97316"
-                    stroke="#7c2d12"
-                  />
-                ) : (
-                  <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
-                )}
-                <Link href={`products/${product.id}`}>{product.prName}</Link>
-                {new Date(product.expires).toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </div>
-            ))
-        ) : (
-          <p>No archived products</p>
-        )}
+        <Accordion
+          type="single"
+          collapsible
+          className="max-w-md mx-10  sm:mx-auto my-10 md:max-w-2xl border border-zinc-400 px-3 rounded-xl "
+        >
+          <AccordionItem value="item-1" className="">
+            <AccordionTrigger className="text-zinc-400">
+              Archive
+            </AccordionTrigger>
+            <AccordionContent className="divide-y">
+              {products.length > 0 ? (
+                products
+                  .filter((product) => isBefore(product.expires, new Date()))
+                  .map((product) => (
+                    <div
+                      className="flex text-xs md:text-base "
+                      key={product.id}
+                    >
+                      {product.important ? (
+                        <BottleIcon
+                          className="h-6"
+                          fill="#f97316"
+                          stroke="#7c2d12"
+                        />
+                      ) : (
+                        <BottleIcon
+                          className="h-6"
+                          fill="none"
+                          stroke="#7c2d12"
+                        />
+                      )}
+                      <p className="text-zinc-500 px-2">
+                        {new Date(product.expires).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <Link
+                        className="text-zinc-500 pr-2"
+                        href={`products/${product.id}`}
+                      >
+                        {product.prName}
+                      </Link>
+                    </div>
+                  ))
+              ) : (
+                <p>No archived products</p>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </>
   );
