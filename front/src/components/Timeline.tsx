@@ -11,7 +11,7 @@ import {
   ShieldExclamationIcon,
 } from "@heroicons/react/24/outline";
 import BottleIcon from "./BottleIcon";
-import { isBefore } from "date-fns";
+import { differenceInDays, isBefore } from "date-fns";
 import {
   TooltipContent,
   TooltipProvider,
@@ -68,9 +68,17 @@ const Timeline = () => {
       </div>
 
       <div>
+        <h1>About to expire</h1>
         {products.length > 0 ? (
           products
-            .filter((product) => isBefore(product.expires, new Date()))
+            .filter((product) => {
+              const dayDifference = differenceInDays(
+                product.expires,
+                new Date()
+              );
+              return dayDifference < 7;
+            })
+            .filter((product) => !isBefore(product.expires, new Date()))
             .map((product) => (
               <div key={product.id}>
                 {product.important ? (
@@ -91,7 +99,7 @@ const Timeline = () => {
               </div>
             ))
         ) : (
-          <p>No archived products</p>
+          <p>No products that abot to expire</p>
         )}
       </div>
 
@@ -195,6 +203,35 @@ const Timeline = () => {
           </p>
         </div>
       )}
+
+      <div>
+        <h1>Archive</h1>
+        {products.length > 0 ? (
+          products
+            .filter((product) => isBefore(product.expires, new Date()))
+            .map((product) => (
+              <div key={product.id}>
+                {product.important ? (
+                  <BottleIcon
+                    className="h-10"
+                    fill="#f97316"
+                    stroke="#7c2d12"
+                  />
+                ) : (
+                  <BottleIcon className="h-10" fill="none" stroke="#7c2d12" />
+                )}
+                <Link href={`products/${product.id}`}>{product.prName}</Link>
+                {new Date(product.expires).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </div>
+            ))
+        ) : (
+          <p>No archived products</p>
+        )}
+      </div>
     </>
   );
 };
