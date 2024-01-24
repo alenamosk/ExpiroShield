@@ -425,7 +425,7 @@ app.post("/add-new-product", AuthMiddleware, async (req: AuthRequest, res) => {
   const parsedBody = productValidator.safeParse(req.body);
 
   if (!parsedBody.success) {
-    res.status(400).send(parsedBody.error.flatten());
+    res.status(400).send({ message: parsedBody.error.flatten() });
     return;
   }
 
