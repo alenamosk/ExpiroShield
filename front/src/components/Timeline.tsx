@@ -100,7 +100,7 @@ const Timeline = () => {
                     </div>
                   ))
               ) : (
-                <p>No products that abot to expire</p>
+                <p>No products that about to expire</p>
               )}
             </AccordionContent>
           </AccordionItem>
