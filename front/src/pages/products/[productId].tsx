@@ -97,15 +97,15 @@ const Product = () => {
 
       {isAlertVisible && (
         <div
-          className=" max-w-md mx-auto bg-teal-300 border border-teal-900 text-teal-900  px-4 py-3 rounded relative md:max-w-2xl my-10"
+          className=" max-w-md mx-auto bg-teal-100 border border-teal-900 text-teal-900  px-4 py-3 rounded relative md:max-w-2xl my-10"
           role="alert"
         >
-          <span className="block sm:inline text-xs md:text-base">
+          <span className="block sm:inline text-xs md:text-base ">
             The product was successfully updated
           </span>
-          <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-1.5 md:py-3">
             <span
-              className="fill-current h-6 w-6 text-teal-900"
+              className="fill-current h-6 w-6 text-teal-900 text-xs md:text-base "
               role="button"
               onClick={handleCloseClick}
             >
