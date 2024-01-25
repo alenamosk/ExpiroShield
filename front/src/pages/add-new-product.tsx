@@ -282,34 +282,29 @@ const FormText = () => {
                   <span>ⓘ</span>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <div className="">
-                    <span className="flex items-center">
-                      <BottleIcon
-                        className="w-6 h-6 pb-1"
-                        fill="#f97316"
-                        stroke="#7c2d12"
-                      />{" "}
-                      - indication for an important product
-                    </span>
-                    <span className="flex items-center">
-                      <BottleIcon
-                        className="w-6 h-6 pb-1"
-                        fill="none"
-                        stroke="#7c2d12"
-                      />{" "}
-                      - indication for a product that is considered less
-                      important
-                    </span>
-                  </div>
+                  <>
+                    <div className="flex gap-2">
+                      <BottleIcon className="w-6 h-6" important={true} />
+                      <p className="">indication for an important product</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <BottleIcon className="w-6 h-6" important={false} />
+                      <p className="">
+                        indication for a product that is considered less
+                        important
+                      </p>
+                    </div>
+                  </>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </label>
+
           <input
             type="checkbox"
             id="important"
             {...register("important")}
-            className="h-4 w-4 rounded border-gray-300 focus:outline-none text-orange-600 focus:ring-orange-600  focus:border-orange-600 cursor-pointer"
+            className="h-4 w-4 rounded border-gray-300 focus:outline-none text-orange-600 focus:ring-orange-600  focus:border-orange-600 cursor-pointer accent-orange-600"
           ></input>
           {errors.important && (
             <p className="error-msg">{errors.important.message}</p>

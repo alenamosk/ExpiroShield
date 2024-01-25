@@ -71,19 +71,11 @@ const Timeline = () => {
                       className="flex text-xs md:text-base "
                       key={product.id}
                     >
-                      {product.important ? (
-                        <BottleIcon
-                          className="h-6"
-                          fill="#f97316"
-                          stroke="#7c2d12"
-                        />
-                      ) : (
-                        <BottleIcon
-                          className="h-6"
-                          fill="none"
-                          stroke="#7c2d12"
-                        />
-                      )}
+                      <BottleIcon
+                        className="h-6"
+                        important={product.important}
+                      />
+
                       <p className="text-orange-400 px-2">
                         {new Date(product.expires).toLocaleString("en-US", {
                           year: "numeric",
@@ -121,13 +113,17 @@ const Timeline = () => {
                 })}
                 dateClassName="date"
                 className="vertical-timeline-element"
-                iconStyle={{ background: "#ffedd5" }}
+                iconStyle={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#ffedd5",
+                }}
                 icon={
-                  product.important ? (
-                    <BottleIcon fill="#f97316" stroke="#7c2d12" />
-                  ) : (
-                    <BottleIcon fill="none" stroke="#7c2d12" />
-                  )
+                  <BottleIcon
+                    important={product.important}
+                    className="!m-0 !static"
+                  />
                 }
               >
                 <h3 className="vertical-timeline-element-title">
@@ -164,19 +160,11 @@ const Timeline = () => {
                       className="flex text-xs md:text-base "
                       key={product.id}
                     >
-                      {product.important ? (
-                        <BottleIcon
-                          className="h-6"
-                          fill="#f97316"
-                          stroke="#7c2d12"
-                        />
-                      ) : (
-                        <BottleIcon
-                          className="h-6"
-                          fill="none"
-                          stroke="#7c2d12"
-                        />
-                      )}
+                      <BottleIcon
+                        className="h-6"
+                        important={product.important}
+                      />
+
                       <p className="text-zinc-500 px-2">
                         {new Date(product.expires).toLocaleString("en-US", {
                           year: "numeric",

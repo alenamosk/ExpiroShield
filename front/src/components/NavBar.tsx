@@ -8,23 +8,22 @@ import ShieldIcon from "./ShieldIcon";
 const NavBar = () => {
   const router = useRouter();
 
-  const [token, setToken] = useState<null | string>(null);
+  const [token, setToken] = useState<boolean>(false);
   useEffect(() => {
+    console.log("Hello from navbar");
     const tokenFromLS = localStorage.getItem("token");
-    if (!tokenFromLS) {
-      setToken("noToken");
-    } else {
-      setToken("hasToken");
+    if (tokenFromLS) {
+      setToken(true);
     }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setToken(null);
+    setToken(false);
     router.push("/");
   };
 
-  if (token === "noToken") {
+  if (!token) {
     return (
       <>
         <div className="mx-5 my-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -68,7 +67,7 @@ const NavBar = () => {
     );
   }
 
-  if (token === "hasToken") {
+  if (token) {
     return (
       <>
         <div className="mx-5 my-5 sm:mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

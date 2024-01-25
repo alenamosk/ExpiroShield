@@ -203,7 +203,7 @@ const EditProductById = () => {
           <input
             id="prName"
             {...register("prName")}
-            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
           {errors.prName && (
             <p className="error-msg">{errors.prName.message}</p>
@@ -218,7 +218,7 @@ const EditProductById = () => {
             max="2030-12-31"
             id="expires"
             {...register("expires")}
-            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
           {errors.expires && (
             <p className="error-msg">{errors.expires.message}</p>
@@ -229,7 +229,7 @@ const EditProductById = () => {
             type="date"
             id="opened"
             {...register("opened")}
-            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
           {errors.opened && (
             <p className="error-msg">{errors.opened.message}</p>
@@ -245,7 +245,7 @@ const EditProductById = () => {
             id="expiresInDays"
             {...register("expiresInDays", { valueAsNumber: true })}
             placeholder="3 months = 90 days, 6 months = 180 days"
-            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></input>
 
           {errors.expiresInDays && (
@@ -286,7 +286,7 @@ const EditProductById = () => {
             id="categoryId"
             {...register("categoryId")}
             // defaultValue={"placeholder"}
-            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option value={"placeholder"}>Select category</option>
             {categories.map((category) => (
@@ -304,7 +304,7 @@ const EditProductById = () => {
             id="description"
             {...register("description")}
             placeholder="May include instructions, ingredients, storage conditions and everything that is important for you about the product"
-            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset focus:outline-none ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           ></textarea>
           {errors.description && (
             <p className="error-msg">{errors.description.message}</p>
@@ -315,7 +315,7 @@ const EditProductById = () => {
             type="checkbox"
             id="important"
             {...register("important")}
-            className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600"
+            className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600 accent-orange-600"
           ></input>
           {errors.important && (
             <p className="error-msg">{errors.important.message}</p>

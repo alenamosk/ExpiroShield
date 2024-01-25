@@ -133,39 +133,10 @@ const Product = () => {
                   className="icon-small"
                   style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
-                  {product.important ? (
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <BottleIcon
-                            className="w-6 h-6 pb-1"
-                            fill="#f97316"
-                            stroke="#7c2d12"
-                          />
-                        </TooltipTrigger>
-
-                        <TooltipContent>
-                          <p>You have marked this as an important product</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  ) : (
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <BottleIcon
-                            className="w-6 h-6 pb-1"
-                            fill="none"
-                            stroke="#7c2d12"
-                          />
-                        </TooltipTrigger>
-
-                        <TooltipContent>
-                          <p>You have marked this as less important product</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  )}
+                  <BottleIcon
+                    className="w-6 h-6 pb-1"
+                    important={product.important}
+                  />
                 </span>
                 {product.prName}{" "}
                 <span
@@ -219,7 +190,7 @@ const Product = () => {
                   </DialogContent>
                 </Dialog>
               </h1>
-              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
+              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold mt-2">
                 Expires:{" "}
                 {new Date(product.expires).toLocaleString("en-US", {
                   year: "numeric",
@@ -228,11 +199,13 @@ const Product = () => {
                 })}
               </div>
 
-              <p className="mt-2 text-slate-500 text-justify ">
-                Description: {product.description}
-              </p>
+              <div className="mt-2 text-slate-500 text-justify ">
+                <span className="font-bold">Description: </span>
+                {product.description}
+              </div>
               <p className="mt-2 text-slate-500">
-                Category: {product.category.catName}
+                <span className="font-bold">Category:</span>{" "}
+                {product.category.catName}
               </p>
             </div>
           </div>
