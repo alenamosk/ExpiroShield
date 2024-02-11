@@ -155,6 +155,11 @@ app.patch(
             expiresInDays: req.body.expiresInDays,
             description: req.body.description,
             important: req.body.important,
+            category: {
+              connect: {
+                id: req.body.categoryId,
+              },
+            },
           },
         });
         res
@@ -377,10 +382,7 @@ app.get("/my-products", AuthMiddleware, async (req: AuthRequest, res) => {
   const mappedProducts = getProducts.map((product) => {
     // If there is no opened data, use expires
     if (!product.opened) {
-      return {
-        ...product,
-        expires: product.expires,
-      };
+      return product;
     }
 
     const expiresDateNew = add(new Date(product.opened), {
@@ -423,7 +425,7 @@ app.post("/add-new-product", AuthMiddleware, async (req: AuthRequest, res) => {
   const parsedBody = productValidator.safeParse(req.body);
 
   if (!parsedBody.success) {
-    res.status(400).send(parsedBody.error.flatten());
+    res.status(400).send({ message: parsedBody.error.flatten() });
     return;
   }
 

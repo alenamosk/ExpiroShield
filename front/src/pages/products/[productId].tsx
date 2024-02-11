@@ -32,6 +32,7 @@ const Product = () => {
   console.log(idFromUrl);
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +55,11 @@ const Product = () => {
       }
     };
     fetchData();
-  }, [idFromUrl]);
+
+    if ("updated" in router.query && router.query.updated) {
+      setIsAlertVisible(true);
+    }
+  }, [idFromUrl, router.query.updated, router]);
 
   const handleDelete = async (idFromUrl: number) => {
     if (localStorage.getItem("token")) {
@@ -82,9 +87,33 @@ const Product = () => {
     }
   };
 
+  const handleCloseClick = () => {
+    setIsAlertVisible(false);
+  };
+
   return (
     <>
       <NavBar />
+
+      {isAlertVisible && (
+        <div
+          className=" max-w-md mx-auto bg-teal-100 border border-teal-900 text-teal-900  px-4 py-3 rounded relative md:max-w-2xl my-10"
+          role="alert"
+        >
+          <span className="block sm:inline text-xs md:text-base ">
+            The product was successfully updated
+          </span>
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-1.5 md:py-3">
+            <span
+              className="fill-current h-6 w-6 text-teal-900 text-xs md:text-base "
+              role="button"
+              onClick={handleCloseClick}
+            >
+              X<title>Close</title>
+            </span>
+          </span>
+        </div>
+      )}
 
       {product !== null && product.id > 0 ? (
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
@@ -104,42 +133,10 @@ const Product = () => {
                   className="icon-small"
                   style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
-                  {/* {product.important ? "IMPORTANT" : "NOT IMPORTANT"} */}
-                  {product.important ? (
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <BottleIcon
-                            className="w-6 h-6 pb-1"
-                            fill="#f97316"
-                            stroke="#7c2d12"
-                          />
-                        </TooltipTrigger>
-
-                        <TooltipContent>
-                          <p>You have marked this as an important product</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  ) : (
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <BottleIcon
-                            className="w-6 h-6 pb-1"
-                            fill="none"
-                            stroke="#7c2d12"
-                          />
-                        </TooltipTrigger>
-
-                        <TooltipContent>
-                          <p>You have marked this as less important product</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                    // <BottleIcon fill="#f97316" stroke="#7c2d12" />
-                    // <BottleIcon fill="none" stroke="#7c2d12" />
-                  )}
+                  <BottleIcon
+                    className="w-6 h-6 pb-1"
+                    important={product.important}
+                  />
                 </span>
                 {product.prName}{" "}
                 <span
@@ -150,14 +147,6 @@ const Product = () => {
                     <EditIcon fill="none" stroke="#7c2d12" />
                   </Link>
                 </span>
-                {/* <span
-                  className="icon-small"
-                  style={{ display: "inline-block", verticalAlign: "middle" }}
-                >
-                  <Link className="delete" href="/main">
-                    <DeleteIcon fill="none" stroke="#7c2d12" />
-                  </Link>
-                </span> */}
                 <Dialog>
                   <span
                     className="icon-small"
@@ -167,10 +156,7 @@ const Product = () => {
                     }}
                   >
                     <DialogTrigger asChild>
-                      <button
-                        // onClick={(e: any) => handleDelete(product?.id)}
-                        className="icon-small"
-                      >
+                      <button className="icon-small">
                         <DeleteIcon fill="none" stroke="#7c2d12" />
                       </button>
                     </DialogTrigger>
@@ -204,7 +190,7 @@ const Product = () => {
                   </DialogContent>
                 </Dialog>
               </h1>
-              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
+              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold mt-2">
                 Expires:{" "}
                 {new Date(product.expires).toLocaleString("en-US", {
                   year: "numeric",
@@ -213,23 +199,13 @@ const Product = () => {
                 })}
               </div>
 
-              {/* <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
-                Opened:{" "}
-                {new Date(product.opened).toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
+              <div className="mt-2 text-slate-500 text-justify ">
+                <span className="font-bold">Description: </span>
+                {product.description}
               </div>
-              <div className="uppercase tracking-wide text-sm text-orange-600 font-semibold">
-                Expires in days: {product.expiresInDays}
-              </div> */}
-
-              <p className="mt-2 text-slate-500 text-justify ">
-                Description: {product.description}
-              </p>
               <p className="mt-2 text-slate-500">
-                Category: {product.category.catName}
+                <span className="font-bold">Category:</span>{" "}
+                {product.category.catName}
               </p>
             </div>
           </div>
