@@ -9,19 +9,34 @@ const seed = async () => {
   for (let i = 0; i < usersData.length; i++) {
     const thisUser = usersData[i];
     await prisma.user.create({
-      data: thisUser,
+      data: {
+        email: thisUser.email,
+        password: thisUser.password,
+      },
     });
   }
   for (let i = 0; i < categoriesData.length; i++) {
     const thisCategory = categoriesData[i];
     await prisma.category.create({
-      data: thisCategory,
+      data: {
+        catName: thisCategory.catName,
+      },
     });
   }
   for (let i = 0; i < productsData.length; i++) {
     const thisProduct = productsData[i];
     await prisma.product.create({
-      data: thisProduct,
+      data: {
+        prName: thisProduct.prName,
+        expires: thisProduct.expires,
+        opened: thisProduct.opened,
+        expiresInDays: thisProduct.expiresInDays,
+        imgUrl: thisProduct.imgUrl,
+        userId: thisProduct.userId,
+        categoryId: thisProduct.categoryId,
+        description: thisProduct.description,
+        important: thisProduct.important,
+      },
     });
   }
 };
