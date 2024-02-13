@@ -12,7 +12,7 @@ ExpiroShield is an web application designed to help users manage and monitor the
 
 - **Responsive design:** Enjoy seamless usage on any device. The interface adapts to different screen sizes for a user-friendly experience across devices.
 
-<img src="front/public/home-page.png" style="width: 400px; height: 300px;">
+<img src="front/public/ExpiroShield_homepage.png" style="width: 400px; height: 300px;">
 
 ## Tech Stack:
 
