@@ -429,6 +429,10 @@ app.post("/add-new-product", AuthMiddleware, async (req: AuthRequest, res) => {
     return;
   }
 
+  console.log(req.userId);
+
+  console.log(req.body.categoryId);
+
   try {
     const newProduct = await prisma.product.create({
       data: {
