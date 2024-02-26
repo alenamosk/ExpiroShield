@@ -48,7 +48,7 @@ const FormText = () => {
     const fetchCategories = async () => {
       try {
         const categoriesResponse = await fetch(
-          "http://127.0.0.1:3001/categories"
+          `${process.env.NEXT_PUBLIC_API_URL}/categories`
         );
 
         const categoriesData = await categoriesResponse.json();
