@@ -14,6 +14,8 @@ ExpiroShield is an web application designed to help users manage and monitor the
 
 <img src="front/public/ExpiroShield_homepage.png" style="width: 400px; height: 300px;">
 
+**<a href="https://expiro-shield.vercel.app/">Live Demo</a>**
+
 ## Tech Stack:
 
 **Frontend:** Next.js, React, TypeScript.<br>
